@@ -10,6 +10,7 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
+    "@meltzzz/meltzui": "^0.0.2",
     "next": "13.1.6",
     "next-auth": "^4.19.0",
     "react": "18.2.0",
