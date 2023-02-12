@@ -1,71 +1,38 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { FetchClient, fetcher } from "../api/fetcher";
 import { MINLENGTH } from "../constant/validationRules";
-export interface ISignIn {
+export interface ISignUp {
   username: string;
+  email: string;
   password: string;
+  studentId: number;
 }
 
-export interface ISignInUser {
-  user: {
-    id: number;
-    clubId: number;
-    email: string;
-    username: string;
-    name: string;
-    studentId: number;
-    passwordHash: string;
-    profImg: string;
-    rank: number;
-    isManageAdmin: boolean;
-    createdAt: Date;
-  };
-  tokens: {
-    accessToken: string;
-    refreshToken: string;
-  };
-}
 function signin() {
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<ISignIn>();
-  const router = useRouter();
-  const login: SubmitHandler<ISignIn> = async (data) => {
-    try {
-      const loggingin = await fetcher.post<ISignInUser>(
-        "/api/v1/auth/signin",
-        data
-      );
-      console.log(loggingin);
-      if (loggingin.data.user) {
-        router.push("/");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  } = useForm<ISignUp>();
+  const signUp: SubmitHandler<ISignUp> = async (data) => {};
   const disablebutton = useRef<HTMLButtonElement>(null);
 
   return (
     <>
       <div className="container mx-auto max-w-lg px-5 py-10">
         <div className="mb-12 text-center">
-          <h1 className="light:text-white text-4xl font-semibold md:text-4xl">
-            Sign In
+          <h1 className="light:text-gray-700 text-4xl font-semibold md:text-4xl">
+            Sign Up
           </h1>
         </div>
         <form
-          onSubmit={handleSubmit(login)}
+          onSubmit={handleSubmit(signUp)}
           className="mb-2 rounded px-8 pt-6 pb-4"
         >
           <div className="mb-4">
-            <label className="mb-2 block text-sm font-bold" htmlFor="text">
+            <label className="mb-2 block text-sm font-bold " htmlFor="text">
               아이디
             </label>
             <input
@@ -76,6 +43,46 @@ function signin() {
               {...register("username", {
                 required: "userid is required",
                 minLength: MINLENGTH,
+              })}
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              className="mb-2 block text-sm font-bold "
+              htmlFor="studentId"
+            >
+              학번
+            </label>
+            <input
+              className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
+              id="studentId"
+              type="number"
+              placeholder="studentId"
+              {...register("studentId", {
+                required: true,
+                pattern: {
+                  value: /^[a-z0-9]{5}$/i,
+                  message: "학번은 5자리 숫자",
+                },
+              })}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="mb-2 block text-sm font-bold " htmlFor="email">
+              이메일
+            </label>
+            <input
+              className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
+              id="email"
+              type="email"
+              placeholder="email"
+              {...register("email", {
+                required: true,
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i,
+                  message: "이메일 형식이 아닙니다.",
+                },
               })}
             />
           </div>
@@ -91,7 +98,7 @@ function signin() {
               {...register("password", {
                 required: true,
                 minLength: {
-                  value: 2,
+                  value: MINLENGTH,
                   message: "Password should be more than 8 letters",
                 },
               })}
@@ -99,7 +106,7 @@ function signin() {
           </div>
           <div className="my-4 text-center text-xs italic text-red-500">
             {Object.keys(errors).map((key, idx) => {
-              return <p key={idx}>{errors[key as keyof ISignIn]?.message}</p>;
+              return <p key={idx}>{errors[key as keyof ISignUp]?.message}</p>;
             })}
           </div>
           <div className="flex items-center justify-between">
@@ -108,16 +115,16 @@ function signin() {
               type="submit"
               ref={disablebutton}
             >
-              Sign In
+              Sign Up
             </button>
           </div>
           <div className="my-2 text-center">OR</div>
           <div className="flex items-center justify-center">
             <Link
               className="text-indigo-700 dark:text-sky-300"
-              href={"/signup"}
+              href={"/signin"}
             >
-              SIGN UP
+              SIGN IN
             </Link>
           </div>
         </form>

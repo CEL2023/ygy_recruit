@@ -4,6 +4,10 @@ import { useTheme } from "next-themes";
 import usePrefersColorScheme from "use-prefers-color-scheme";
 import { useEffect, useLayoutEffect, useState } from "react";
 import ThemeSelect from "./ThemeSelect";
+import dynamic from "next/dynamic";
+const DynamicThemeSelect = dynamic(() => import("../components/ThemeSelect"), {
+  ssr: false,
+});
 
 export default function NavBar() {
   return (
@@ -16,7 +20,7 @@ export default function NavBar() {
             </Link>
             <div className="flex gap-8">
               <div className="flex items-center justify-center gap-10 font-medium "></div>
-              <ThemeSelect />
+              <DynamicThemeSelect />
               <div>
                 <div className="flex items-center justify-center gap-2 rounded-xl">
                   <div className="flex items-center justify-center">
