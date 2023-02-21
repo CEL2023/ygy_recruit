@@ -1,40 +1,34 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useTheme } from "next-themes";
-import usePrefersColorScheme from "use-prefers-color-scheme";
-import { useEffect, useLayoutEffect, useState } from "react";
-import ThemeSelect from "./ThemeSelect";
 import dynamic from "next/dynamic";
+import UserProfileCard from "./UserProfileCard";
+import { useUserStore } from "../zustand/User";
+import Logo from "./Logo";
 const DynamicThemeSelect = dynamic(() => import("../components/ThemeSelect"), {
   ssr: false,
 });
-
+const DynamicLogo = dynamic(() => import("../components/Logo"), {
+  ssr: false,
+});
 export default function NavBar() {
+  const { user } = useUserStore();
   return (
-    <header className="z-99 sticky top-0 w-full bg-white shadow dark:bg-[#212121] ">
+    <header className="sticky top-0 z-[99] w-full bg-white shadow transition-colors duration-1000 dark:bg-[#212121] ">
       <nav>
         <div className="mx-auto sm:max-w-2xl md:max-w-5xl lg:max-w-6xl xl:max-w-7xl">
           <div className="flex-column relative flex items-center justify-between gap-10 py-3 px-6 text-xl ">
-            <Link href={"/"}>
-              <Image src="/ferris.jpg" alt="" width={30} height={30} />
-            </Link>
+            <DynamicLogo />
             <div className="flex gap-8">
-              <div className="flex items-center justify-center gap-10 font-medium "></div>
-              <DynamicThemeSelect />
-              <div>
-                <div className="flex items-center justify-center gap-2 rounded-xl">
-                  <div className="flex items-center justify-center">
-                    <Link href={"/me"} className="relative h-8 w-8">
-                      <Image
-                        width={30}
-                        height={30}
-                        className="rounded-full"
-                        src={`/ferris.jpg`}
-                        alt=""
-                      />
-                    </Link>
+              <div className="flex items-center justify-center gap-8 ">
+                <Link href={"/club"}>
+                  <div className="text-center text-base font-bold">
+                    지원하기
                   </div>
-                </div>
+                </Link>
+              </div>
+              <div className="flex gap-4">
+                <UserProfileCard user={user} />
+                <DynamicThemeSelect />
               </div>
             </div>
           </div>

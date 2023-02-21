@@ -1,28 +1,31 @@
+import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { FetchClient, fetcher } from "../api/fetcher";
+import { fetchMe, IFetchMe } from "../api/auth/fetchMe";
+import { fetcher } from "../api/fetcher";
 import { MINLENGTH } from "../constant/validationRules";
 export interface ISignIn {
   username: string;
   password: string;
 }
-
+export interface IUser {
+  id: number;
+  clubId: number;
+  email: string;
+  username: string;
+  name: string;
+  studentId: number;
+  passwordHash: string;
+  profImg: string;
+  rank: number;
+  isManageAdmin: boolean;
+  createdAt: Date;
+}
 export interface ISignInUser {
-  user: {
-    id: number;
-    clubId: number;
-    email: string;
-    username: string;
-    name: string;
-    studentId: number;
-    passwordHash: string;
-    profImg: string;
-    rank: number;
-    isManageAdmin: boolean;
-    createdAt: Date;
-  };
+  user: IUser;
   tokens: {
     accessToken: string;
     refreshToken: string;
@@ -32,7 +35,6 @@ function signin() {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm<ISignIn>();
   const router = useRouter();
@@ -42,10 +44,11 @@ function signin() {
         "/api/v1/auth/signin",
         data
       );
-      console.log(loggingin);
-      if (loggingin.data.user) {
-        router.push("/");
-      }
+      if (!loggingin || !loggingin.data.user) throw new Error("Error");
+
+      console.log({ data });
+      router.replace("/");
+      router.reload();
     } catch (e) {
       console.log(e);
     }
@@ -54,7 +57,7 @@ function signin() {
 
   return (
     <>
-      <div className="container mx-auto max-w-lg px-5 py-10">
+      <div className="container z-0 mx-auto max-w-lg px-5 py-10">
         <div className="mb-12 text-center">
           <h1 className="light:text-white text-4xl font-semibold md:text-4xl">
             Sign In
