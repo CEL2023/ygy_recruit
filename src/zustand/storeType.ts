@@ -1,4 +1,4 @@
-import { IFetchMe } from "../api/auth/fetchMe";
+import { type IFetchMe } from "../api/auth/fetchMe";
 
 export interface IUserStore {
   user: null | IFetchMe;

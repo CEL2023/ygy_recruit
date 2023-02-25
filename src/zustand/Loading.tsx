@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ILoading } from "./storeType";
+import { type ILoading } from "./storeType";
 
 export const useLoading = create<ILoading>((set) => ({
   isLoading: false,

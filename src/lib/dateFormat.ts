@@ -1,4 +1,4 @@
-export const toDateString = (date: string) => {
+export const toDateString = (date: string | Date) => {
   return new Intl.DateTimeFormat("ko", {
     dateStyle: "medium",
     timeStyle: "medium",

@@ -1,10 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useRef } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { fetchMe, IFetchMe } from "../api/auth/fetchMe";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { fetcher } from "../api/fetcher";
 import { MINLENGTH } from "../constant/validationRules";
 export interface ISignIn {
@@ -31,7 +28,7 @@ export interface ISignInUser {
     refreshToken: string;
   };
 }
-function signin() {
+function SignIn() {
   const {
     register,
     handleSubmit,
@@ -44,10 +41,10 @@ function signin() {
         "/api/v1/auth/signin",
         data
       );
-      if (!loggingin || !loggingin.data.user) throw new Error("Error");
+      if (!loggingin || !loggingin?.data?.user) throw new Error("Error");
 
       console.log({ data });
-      router.replace("/");
+      await router.push("/");
       router.reload();
     } catch (e) {
       console.log(e);
@@ -129,4 +126,4 @@ function signin() {
   );
 }
 
-export default signin;
+export default SignIn;

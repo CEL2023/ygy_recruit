@@ -1,27 +1,28 @@
 import { useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import { type AxiosError } from "axios";
 import { useRouter } from "next/router";
 import React from "react";
-import { getClubForm } from "../../../../api/form";
-import FormPreview from "../../../../components/FormPreview";
+import { getClubForm, type IForm } from "../../../../api/form/api";
 import FormRegisterView from "../../../../components/FormRegisterView";
-import FormResultView from "../../../../components/FormResultView";
 
-function index() {
+function Page() {
   const {
     query: { clubId },
   } = useRouter();
-  const { data, isLoading } = useQuery<any, AxiosError, { data: any }>({
-    queryKey: [`/club/${clubId}/form/0`],
+  const { data, isLoading } = useQuery<any, AxiosError, { data: IForm }>({
+    queryKey: [`club/form`, clubId],
     queryFn: () => getClubForm(clubId!),
   });
+
   return (
     <div>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
         <FormRegisterView
-          formContent={data?.data.content ?? []}
+          formId={data?.data?.id!}
+          clubId={data?.data?.clubId!}
+          formContent={data?.data?.content ?? []}
           title="지원하기"
           subTitle=""
         />
@@ -30,4 +31,4 @@ function index() {
   );
 }
 
-export default index;
+export default Page;

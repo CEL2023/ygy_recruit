@@ -11,7 +11,7 @@ function ClubHeart({ isLiked, clubId, disabled }: props) {
   const [likes, setLikes] = useState(isLiked);
   const { mutateAsync } = useMutation({
     mutationFn: () => changeLike(isLiked, clubId),
-    mutationKey: [`/club/${clubId}/likes`],
+    mutationKey: [`club/likes`, clubId],
   });
   return (
     <button

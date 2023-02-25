@@ -1,19 +1,9 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
-import FetchClient from "./axiosClient";
-
-export class FetchError extends Error {
-  constructor(public response: AxiosResponse, public data: any) {
-    super(`Fetch failed with status ${response.status}`);
-  }
-}
-async function rejectIfNeeded(error: AxiosError) {
-  return error;
-}
+import fetchClient from "./axiosClient";
 
 export const fetcher = {
   async get<T>(url: string) {
     try {
-      const response = await FetchClient.get<T>(url);
+      const response = await fetchClient.get<T>(url);
       const data = await response.data;
       const { headers } = response;
 
@@ -21,13 +11,11 @@ export const fetcher = {
         data,
         headers,
       };
-    } catch (e: any) {
-      await rejectIfNeeded(e);
-    }
+    } catch (e: any) {}
   },
   async post<T>(url: string, body?: any) {
     try {
-      const response = await FetchClient.post<T>(url, body ?? null);
+      const response = await fetchClient.post<T>(url, body ?? null);
       const data = await response.data;
       const { headers } = response;
 
@@ -35,13 +23,11 @@ export const fetcher = {
         data,
         headers,
       };
-    } catch (e: any) {
-      await rejectIfNeeded(e);
-    }
+    } catch (e: any) {}
   },
   async patch<T>(url: string, body: any) {
     try {
-      const response = await FetchClient.patch<T>(url, body ?? null);
+      const response = await fetchClient.patch<T>(url, body ?? null);
       const data = await response.data;
       const { headers } = response;
 
@@ -49,13 +35,11 @@ export const fetcher = {
         data,
         headers,
       };
-    } catch (e: any) {
-      await rejectIfNeeded(e);
-    }
+    } catch (e: any) {}
   },
   async delete<T>(url: string) {
     try {
-      const response = await FetchClient.delete<T>(url);
+      const response = await fetchClient.delete<T>(url);
       const data = await response.data;
       const { headers } = response;
 
@@ -63,8 +47,6 @@ export const fetcher = {
         data,
         headers,
       };
-    } catch (e: any) {
-      await rejectIfNeeded(e);
-    }
+    } catch (e: any) {}
   },
 };

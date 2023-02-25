@@ -10,6 +10,7 @@ export interface IFetchMe {
   studentId: number;
   email: string;
   rank: number;
+  clubId?: number;
   iat: number;
   exp: number;
 }

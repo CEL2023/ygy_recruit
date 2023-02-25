@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 interface props {
   formContent: any;
   formAnswer: any;
@@ -7,41 +6,9 @@ interface props {
   subTitle: string;
 }
 function FormResultView({ formContent, title, subTitle, formAnswer }: props) {
-  const { register, control, handleSubmit } = useForm({
+  const { register } = useForm({
     defaultValues: formAnswer,
   });
-  // const {
-  //   fields: multipleFields,
-  //   remove: multipleRemove,
-  //   append: multipleAppend,
-  // } = useFieldArray({
-  //   control,
-  //   name: "mutliples",
-  // });
-  // const {
-  //   fields: shortFields,
-  //   remove: shortRemove,
-  //   append: shortAppend,
-  // } = useFieldArray({
-  //   control,
-  //   name: "shorts",
-  // });
-  // const {
-  //   fields: paragraphFields,
-  //   remove: paragraphRemove,
-  //   append: paragraphAppend,
-  // } = useFieldArray({
-  //   control,
-  //   name: "paragraphs",
-  // });
-  // const {
-  //   fields: dropdownFields,
-  //   remove: dropdownRemove,
-  //   append: dropdownAppend,
-  // } = useFieldArray({
-  //   control,
-  //   name: "dropdowns",
-  // });
   const submit: SubmitHandler<any> = async (data) => {
     console.log(data);
   };

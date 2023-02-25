@@ -1,9 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import UserProfileCard from "./UserProfileCard";
 import { useUserStore } from "../zustand/User";
-import Logo from "./Logo";
 const DynamicThemeSelect = dynamic(() => import("../components/ThemeSelect"), {
   ssr: false,
 });

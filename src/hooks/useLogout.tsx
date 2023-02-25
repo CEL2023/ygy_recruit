@@ -9,7 +9,7 @@ export const useLogout = () => {
     } catch (e) {
       console.log(e);
     }
-    router.replace("/");
+    await router.push("/");
     router.reload();
   };
   return handleLogout;

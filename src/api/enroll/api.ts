@@ -13,15 +13,15 @@ export interface IEnroll {
   isEditCompleted: boolean;
   passLevel: number;
   finalRegister?: any;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date | string;
+  updatedAt: Date | string;
   User: ISeekUser;
 }
 
 export const getAllSubmittedEnroll = async (clubId: string | string[]) => {
   try {
     const res = await fetcher.get<IEnroll[]>(
-      `/api/v1/club/${clubId}/submittedEnroll`
+      `/api/v1/club/${clubId.toString()}/submittedEnroll`
     );
     return res;
   } catch (e) {}
@@ -32,14 +32,29 @@ export const getClubSubmittedEnroll = async (
 ) => {
   try {
     const res = await fetcher.get<IEnroll[]>(
-      `/api/v1/club/${clubId}/enroll/${enrollId}`
+      `/api/v1/club/${clubId.toString()}/enroll/${enrollId.toString()}`
     );
     return res;
   } catch (e) {}
 };
 
-export const getMyEnroll = async () => {
+export const getMyEnrolls = async () => {
   try {
-    return await fetcher.get<IEnroll[]>("/api/v1/club/enroll");
+    return await fetcher.get<IEnroll[]>("/api/v1/me/enrolls");
+  } catch (e) {}
+};
+
+export const submitEnroll = async (
+  clubId: number,
+  formId: number,
+  isEditCompleted: boolean = false,
+  data: object = {}
+) => {
+  try {
+    return await fetcher.post(`/api/v1/club/${clubId.toString()}/enroll`, {
+      formId,
+      isEditCompleted,
+      data,
+    });
   } catch (e) {}
 };

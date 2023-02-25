@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useRef } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { MINLENGTH } from "../constant/validationRules";
 export interface ISignUp {
   username: string;
@@ -9,15 +9,13 @@ export interface ISignUp {
   studentId: number;
 }
 
-function signin() {
+function SignUp() {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm<ISignUp>();
   const signUp: SubmitHandler<ISignUp> = async (data) => {};
-  const disablebutton = useRef<HTMLButtonElement>(null);
 
   return (
     <>
@@ -113,7 +111,6 @@ function signin() {
             <button
               className="focus:shadow-outline w-full rounded bg-indigo-400 py-2 px-4 font-bold text-white hover:bg-indigo-700 focus:outline-none"
               type="submit"
-              ref={disablebutton}
             >
               Sign Up
             </button>
@@ -133,4 +130,4 @@ function signin() {
   );
 }
 
-export default signin;
+export default SignUp;

@@ -1,21 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import { type AxiosError } from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { IClub } from "..";
-import { getClub } from "../../../api/club";
+import { getClub, type IClub } from "../../../api/club";
 import ClubHeart from "../../../components/ClubHeart";
 import VertProfileCard from "../../../components/VertProfileCard";
 import { useUserStore } from "../../../zustand/User";
 
-function index() {
+function Page() {
   const {
     query: { clubId },
     push,
   } = useRouter();
   const { user } = useUserStore();
   const { data, isLoading } = useQuery<any, AxiosError, { data: IClub }>({
-    queryKey: [`/club/${clubId}`],
+    queryKey: [`club`, clubId],
     queryFn: () => getClub(parseInt(clubId! as string)),
   });
 
@@ -24,20 +23,20 @@ function index() {
       {isLoading ? (
         <div>loading...</div>
       ) : (
-        <div className=" mx-auto w-5/6">
+        <div className=" mx-auto w-full sm:w-5/6">
           <div className=" relative h-64">
             <Image
               className=" object-cover"
               fill
               src={
-                data?.data.bgImg == "" || data?.data.bgImg == undefined
+                data?.data?.bgImg == "" || data?.data?.bgImg == undefined
                   ? "/ferris.jpg"
-                  : data?.data.bgImg
+                  : data?.data?.bgImg
               }
               alt=""
             />
             <div className="absolute bottom-4 right-4 text-4xl font-medium text-black">
-              {data?.data.name}
+              {data?.data?.name}
             </div>
             <ClubHeart
               disabled={data?.data?.clubLikes ? false : true}
@@ -46,34 +45,36 @@ function index() {
             />
           </div>
           <div>
-            <div className="flex gap-2 sm:flex-col md:flex-row">
-              <div className=" basis-3/4 rounded-2xl shadow-xl">
-                <div className=" p-4 text-left text-2xl font-semibold">
-                  {data?.data.desc}
+            <div className="flex flex-col gap-2 md:flex-row">
+              <div className=" basis-3/4 rounded-2xl sm:shadow-xl">
+                <div className=" break-all p-4 text-center text-xl font-semibold sm:text-left sm:text-2xl">
+                  {data?.data?.desc}
                 </div>
               </div>
-              <div className=" flex basis-1/4 flex-col items-center rounded-2xl p-4 shadow-xl">
+              <div className=" basis-1/4 flex-col items-center rounded-2xl sm:flex-row sm:p-4 sm:shadow-xl">
                 <div className="text-center text-2xl font-semibold">부원</div>
                 <div>
-                  {data?.data.members.map((item, index: number) => {
+                  {data?.data?.members?.map((item, index: number) => {
                     return <VertProfileCard key={index} user={item} />;
                   })}
                 </div>
-                <div className=" flex flex-col gap-4">
-                  <button
-                    onClick={() => push(`/club/${clubId}/form`)}
-                    className="mx-auto w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
-                  >
-                    지원하기
-                  </button>
-                  {user?.rank && user?.rank >= 1 ? (
+                <div className=" mx-2 flex gap-4 sm:flex-col">
+                  {user?.rank && user?.rank >= 1 && user?.clubId == clubId ? (
                     <button
                       onClick={() => push(`/club/${clubId}/admin`)}
                       className="mx-auto w-48 rounded-xl bg-green-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-green-400"
                     >
                       관리자페이지
                     </button>
-                  ) : null}
+                  ) : (
+                    <button
+                      onClick={() => push(`/club/${clubId}/form`)}
+                      disabled={!!user?.rank}
+                      className="mx-auto w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
+                    >
+                      지원하기
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -84,4 +85,4 @@ function index() {
   );
 }
 
-export default index;
+export default Page;

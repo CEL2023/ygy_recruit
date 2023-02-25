@@ -1,4 +1,3 @@
-import React, { useRef } from "react";
 import Lottie from "react-lottie";
 import loader from "../../public/lotties/loader.json";
 import { useLoading } from "../zustand/Loading";

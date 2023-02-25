@@ -1,46 +1,29 @@
-import React, { useState } from "react";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { submitEnroll } from "../api/enroll/api";
 interface props {
+  formId: number;
+  clubId: number;
   formContent: any;
   title: string;
   subTitle: string;
 }
-function FormRegisterView({ formContent, title, subTitle }: props) {
-  const { register, control, handleSubmit } = useForm();
-  // const {
-  //   fields: multipleFields,
-  //   remove: multipleRemove,
-  //   append: multipleAppend,
-  // } = useFieldArray({
-  //   control,
-  //   name: "mutliples",
-  // });
-  // const {
-  //   fields: shortFields,
-  //   remove: shortRemove,
-  //   append: shortAppend,
-  // } = useFieldArray({
-  //   control,
-  //   name: "shorts",
-  // });
-  // const {
-  //   fields: paragraphFields,
-  //   remove: paragraphRemove,
-  //   append: paragraphAppend,
-  // } = useFieldArray({
-  //   control,
-  //   name: "paragraphs",
-  // });
-  // const {
-  //   fields: dropdownFields,
-  //   remove: dropdownRemove,
-  //   append: dropdownAppend,
-  // } = useFieldArray({
-  //   control,
-  //   name: "dropdowns",
-  // });
+function FormRegisterView({
+  formContent,
+  title,
+  subTitle,
+  formId,
+  clubId,
+}: props) {
+  const { register, handleSubmit } = useForm();
+  const [saveMethod, setSave] = useState(false);
+  const { mutateAsync } = useMutation({
+    mutationKey: ["club/enroll", formId],
+    mutationFn: (data) => submitEnroll(clubId, formId, saveMethod, data!),
+  });
   const submit: SubmitHandler<any> = async (data) => {
-    console.log(data);
+    await mutateAsync(data);
   };
   return (
     <form onSubmit={handleSubmit(submit)}>
@@ -125,12 +108,24 @@ function FormRegisterView({ formContent, title, subTitle }: props) {
           );
         })}
       </div>
-      <div className="mx-auto items-center justify-center">
+      <div className="mx-auto flex items-center justify-center gap-2">
         <button
+          type="submit"
           className="mx-auto w-full rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
-          onClick={() => {}}
+          onClick={() => {
+            setSave(true);
+          }}
         >
-          폼 저장하기
+          폼 제출하기
+        </button>
+        <button
+          type="submit"
+          className="mx-auto w-full rounded-xl bg-green-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-green-400"
+          onClick={() => {
+            setSave(false);
+          }}
+        >
+          임시 저장하기
         </button>
       </div>
     </form>

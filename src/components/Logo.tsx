@@ -9,7 +9,7 @@ function Logo() {
   return (
     <Link href={"/"}>
       <Image
-        src={`/ygy-logo-${currentTheme}.jpeg`}
+        src={`/ygy-logo-${currentTheme!}.jpeg`}
         alt=""
         className="object-fill"
         width={30}

@@ -1,11 +1,11 @@
 import Link from "next/link";
+import { type IMember } from "../api/club";
 import { toRankString } from "../lib/rankToStr";
-import { IMember } from "../pages/club";
 
 function VertProfileCard({ user }: { user: IMember | null }) {
   return (
     <Link
-      href={`/user/${user?.username}`}
+      href={`/user/${user?.username.toString()}`}
       className="focus:shadow-outline h-10 items-center justify-center break-words rounded py-1 px-4 text-base font-bold"
     >
       <div className="flex items-center justify-center gap-2">

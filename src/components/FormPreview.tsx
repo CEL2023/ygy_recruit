@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 interface props {
   formContent: any;
   title: string;
@@ -7,7 +6,7 @@ interface props {
 function FormView({ formContent, title, subTitle }: props) {
   return (
     <div>
-      <div className="mt-8 mb-4 flex w-full flex-col space-y-2">
+      <div className="mb-4 flex w-full flex-col space-y-2">
         <h1 className="text-center text-6xl font-bold">{title}</h1>
         <h2 className="text-center text-4xl font-semibold">{subTitle}</h2>
       </div>

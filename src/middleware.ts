@@ -1,8 +1,8 @@
-import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
-import { ISignInUser } from "./pages/signin";
+import { type NextRequest, NextResponse } from "next/server";
+import { ISignInUser } from "./pages/SignIn";
 
 // This function can be marked `async` if using `await` inside
-export async function middleware(request: NextRequest, event: NextFetchEvent) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   if (
     new RegExp(/^.*(fonts|_next|vk.com|favicon|public).*$/).test(request.url) ||
@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
         },
       }
     );
-    const res: ISignInUser = await rs.json();
+    const res: ISignInUser = await rs?.json();
     const setCookie = rs.headers.get("Set-Cookie");
     if (!setCookie) {
       response.headers.set("isLoggedIn", "false");
@@ -44,7 +44,6 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
       return response;
     }
   } catch (_error) {
-    console.log("wrong");
     response.headers.set("isLoggedIn", "false");
     try {
       await fetch(new URL("http://localhost:3000/api/v1/auth/signout"));

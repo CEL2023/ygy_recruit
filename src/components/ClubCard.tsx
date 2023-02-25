@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
-import { IClub } from "../pages/club";
+import { type IClub } from "../api/club";
 
 function ClubCard({ club }: { club: IClub }) {
   return (

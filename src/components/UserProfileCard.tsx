@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IFetchMe } from "../api/auth/fetchMe";
+import { type IFetchMe } from "../api/auth/fetchMe";
 import NotSignedInBase from "./notSignedInBase";
 
 function ProfileCard({ user }: { user: IFetchMe | null }) {

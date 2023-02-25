@@ -1,18 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import Link from "next/link";
+import { type AxiosError } from "axios";
 import { useRouter } from "next/router";
-import React from "react";
-import { getAllSubmittedEnroll, IEnroll } from "../../../../../api/enroll";
-import EnrollCard from "../../../../../components/EnrollCard";
-import { toDateString } from "../../../../../lib/dateFormat";
+import {
+  getAllSubmittedEnroll,
+  type IEnroll,
+} from "../../../../../api/enroll/api";
+import AdminEnrollCard from "../../../../../components/AdminEnrollCard";
 
-function index() {
+function Page() {
   const {
     query: { clubId },
   } = useRouter();
   const { data, isLoading } = useQuery<any, AxiosError, { data: IEnroll[] }>({
-    queryKey: [`/club/${clubId}/admin/enrolls`],
+    queryKey: [`club/admin/enrolls`, clubId],
     queryFn: () => getAllSubmittedEnroll(clubId!),
   });
   return (
@@ -22,8 +22,10 @@ function index() {
       ) : (
         <div className=" flex flex-col gap-4">
           <div className=" text-bold m-4 mt-10 text-center text-6xl">지원</div>
-          {data?.data.map((item, index) => {
-            return <EnrollCard key={index} enroll={item} clubId={clubId!} />;
+          {data?.data?.map((item, index) => {
+            return (
+              <AdminEnrollCard key={index} enroll={item} clubId={clubId!} />
+            );
           })}
         </div>
       )}
@@ -31,4 +33,4 @@ function index() {
   );
 }
 
-export default index;
+export default Page;
