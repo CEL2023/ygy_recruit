@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { ISignInUser } from "./pages/SignIn";
-
+import { ISignInUser } from "./pages/signin";
+const url = process?.env?.BASE_URL ?? "http://localhost:3001";
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -22,16 +22,13 @@ export async function middleware(request: NextRequest) {
     return response;
   }
   try {
-    const rs = await fetch(
-      new URL("http://localhost:3000/api/v1/auth/refresh"),
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          Cookie: `refresh_token=${refresh_token.value}`,
-        },
-      }
-    );
+    const rs = await fetch(new URL(`${url}/api/v1/auth/refresh`), {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Cookie: `refresh_token=${refresh_token.value}`,
+      },
+    });
     const res: ISignInUser = await rs?.json();
     const setCookie = rs.headers.get("Set-Cookie");
     if (!setCookie) {
@@ -46,7 +43,7 @@ export async function middleware(request: NextRequest) {
   } catch (_error) {
     response.headers.set("isLoggedIn", "false");
     try {
-      await fetch(new URL("http://localhost:3000/api/v1/auth/signout"));
+      await fetch(new URL(`${url}/api/v1/auth/signout`));
     } catch (e) {}
 
     return response;

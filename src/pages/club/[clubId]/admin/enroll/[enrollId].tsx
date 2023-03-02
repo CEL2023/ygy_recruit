@@ -30,7 +30,7 @@ function EnrollDetail() {
           <FormResultView
             title={"asdasd"}
             subTitle={data?.data[0]?.User.name!}
-            formContent={form?.data?.content ?? []}
+            formContent={form?.data?.content ?? "[]"}
             formAnswer={data?.data[0]?.data}
           />
         </div>

@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { submitEnroll } from "../api/enroll/api";
@@ -8,6 +9,7 @@ interface props {
   formContent: any;
   title: string;
   subTitle: string;
+  formAnswer?: any;
 }
 function FormRegisterView({
   formContent,
@@ -15,15 +17,23 @@ function FormRegisterView({
   subTitle,
   formId,
   clubId,
+  formAnswer,
 }: props) {
-  const { register, handleSubmit } = useForm();
+  const { push } = useRouter();
+  const { register, handleSubmit } = useForm({
+    defaultValues: formAnswer ?? undefined,
+  });
   const [saveMethod, setSave] = useState(false);
   const { mutateAsync } = useMutation({
     mutationKey: ["club/enroll", formId],
-    mutationFn: (data) => submitEnroll(clubId, formId, saveMethod, data!),
+    mutationFn: ({ saveMethod, ...data }: any) =>
+      submitEnroll(clubId, formId, saveMethod, data!),
   });
   const submit: SubmitHandler<any> = async (data) => {
-    await mutateAsync(data);
+    try {
+      await mutateAsync({ ...data, saveMethod });
+      await push("/me");
+    } catch (e) {}
   };
   return (
     <form onSubmit={handleSubmit(submit)}>

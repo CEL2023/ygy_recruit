@@ -13,7 +13,7 @@ function StatCard({ label, count, className }: StatProps) {
     >
       <div className="text-center text-4xl font-semibold">{label}</div>
       <div className=" text-center text-5xl font-bold">
-        {label == "경쟁률" ? `${count.toString} : 1` : count}
+        {label == "경쟁률" ? `${count.toString()} : 1` : count}
       </div>
     </div>
   );

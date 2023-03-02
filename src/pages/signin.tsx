@@ -43,7 +43,6 @@ function SignIn() {
       );
       if (!loggingin || !loggingin?.data?.user) throw new Error("Error");
 
-      console.log({ data });
       await router.push("/");
       router.reload();
     } catch (e) {

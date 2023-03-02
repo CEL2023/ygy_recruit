@@ -9,15 +9,7 @@ import {
 } from "@tanstack/react-query";
 import TokenCore from "../components/TokenCore";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import ErrorBoundary from "../components/ErrorBoundary";
-import ErrorPage from "../components/ErrorPage";
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      useErrorBoundary: true,
-    },
-  },
-});
+const queryClient = new QueryClient({});
 
 const MyApp = ({
   Component,
@@ -28,17 +20,7 @@ const MyApp = ({
       <ReactQueryDevtools initialIsOpen={false} />
       <ThemeProvider attribute="class" enableSystem={true}>
         <Layout>
-          <QueryErrorResetBoundary>
-            {({ reset }) => (
-              <ErrorBoundary
-                onReset={reset}
-                fallback={ErrorPage}
-                message="something wrong"
-              >
-                <Component {...pageProps} />
-              </ErrorBoundary>
-            )}
-          </QueryErrorResetBoundary>
+          <Component {...pageProps} />
         </Layout>
         <TokenCore isLoggedIn={isLoggedIn} />
       </ThemeProvider>

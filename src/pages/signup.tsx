@@ -1,21 +1,46 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useRef } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
+import { fetcher } from "../api/fetcher";
 import { MINLENGTH } from "../constant/validationRules";
 export interface ISignUp {
   username: string;
   email: string;
   password: string;
   studentId: number;
+  name: string;
 }
-
 function SignUp() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ISignUp>();
-  const signUp: SubmitHandler<ISignUp> = async (data) => {};
+  const router = useRouter();
+  const signUp: SubmitHandler<ISignUp> = async ({
+    username,
+    email,
+    password,
+    studentId,
+    name,
+  }) => {
+    try {
+      const loggingin = await fetcher.post("/api/v1/auth/signup", {
+        username,
+        email,
+        password,
+        studentId: parseInt(studentId.toString()),
+        name,
+      });
+      if (!loggingin) throw new Error("Error");
+
+      await router.push("/");
+      router.reload();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <>
@@ -44,7 +69,20 @@ function SignUp() {
               })}
             />
           </div>
-
+          <div className="mb-4">
+            <label className="mb-2 block text-sm font-bold " htmlFor="text">
+              이름
+            </label>
+            <input
+              className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
+              id="name"
+              type="text"
+              placeholder="name"
+              {...register("name", {
+                required: "userid is required",
+              })}
+            />
+          </div>
           <div className="mb-4">
             <label
               className="mb-2 block text-sm font-bold "
