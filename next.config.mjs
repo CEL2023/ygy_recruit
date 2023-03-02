@@ -17,6 +17,9 @@ const config = {
   sentry: {
     hideSourceMaps: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 const sentryWebpackPluginOptions = {

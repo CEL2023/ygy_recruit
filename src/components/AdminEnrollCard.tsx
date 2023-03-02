@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IEnroll } from "../api/enroll/api";
+import { type IEnroll } from "../api/enroll/api";
 import { toDateString } from "../lib/dateFormat";
 import { toPassLevelStr } from "../lib/passLevelToStr";
 

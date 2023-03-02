@@ -9,3 +9,7 @@ export interface ILoading {
   isLoading: boolean;
   setGLLoading: (input: boolean) => void;
 }
+export interface IGlobalModal {
+  isOpen: boolean;
+  setGMOpen: (input: boolean) => void;
+}

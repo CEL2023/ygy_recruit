@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 const fetchClient = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: process?.env?.NEXT_PUBLIC_BASE_URL ?? "https://api.kghigh.com",
   headers: {
     Accept: "application/json",
   },

@@ -15,37 +15,21 @@ function Page() {
     queryFn: getMyEnrolls,
   });
   return (
-    <div>
+    <div className=" p-4">
       <div>
         {isLoading ? (
           <div>Loading...</div>
         ) : (
           <div className=" mx-auto">
-            <div className="text-bold m-4 mt-4 text-center text-4xl">
+            <h1 className="text-bold m-4 mt-6 text-center text-6xl font-bold">
               마이페이지
-            </div>
-            {!!!user?.rank ? (
-              <div className=" mx-auto flex flex-col gap-2 sm:w-1/2">
-                <div className=" text-bold m-4 mt-6 text-center text-4xl">
-                  나의 지원
-                </div>
-                {data?.data?.map((item, index) => {
-                  return (
-                    <EnrollCard
-                      key={index}
-                      enroll={item}
-                      clubId={item.clubId.toString()}
-                    />
-                  );
-                })}
-              </div>
-            ) : null}
+            </h1>
           </div>
         )}
       </div>
       <div className=" flex flex-col items-center justify-center gap-8">
-        <div className="flex flex-col items-center justify-center gap-4">
-          <div className="relative h-48 w-48">
+        <div className="flex items-center justify-center gap-4">
+          <div className="relative h-36 w-36">
             <Image
               fill
               className=" z-0 object-contain"
@@ -72,14 +56,24 @@ function Page() {
             </div>
           </div>
         </div>
-        <div>
-          <button
-            className="mx-auto w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
-            onClick={logout}
-          >
-            로그아웃
-          </button>
+      </div>
+      {!!!user?.rank ? (
+        <div className=" m-8 mx-auto flex flex-col gap-2">
+          <div className=" text-bold m-4 mt-6 text-center text-4xl">
+            나의 지원
+          </div>
+          {data?.data?.map((item, index) => {
+            return <EnrollCard key={index} enroll={item} />;
+          })}
         </div>
+      ) : null}
+      <div>
+        <button
+          className="mx-auto w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
+          onClick={logout}
+        >
+          로그아웃
+        </button>
       </div>
     </div>
   );

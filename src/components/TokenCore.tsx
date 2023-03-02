@@ -6,7 +6,7 @@ import { useUserStore } from "../zustand/User";
 
 function TokenCore({ isLoggedIn }: { isLoggedIn: boolean }) {
   const { user, setUser } = useUserStore();
-  const [rtSchedule, setRtSchedule] = useState<NodeJS.Timeout>();
+  const [rtSchedule, setRtSchedule] = useState<NodeJS.Timeout | undefined>();
   const isFocused = useWindowFocus();
   const silentRefresh = async () => {
     try {
@@ -22,12 +22,12 @@ function TokenCore({ isLoggedIn }: { isLoggedIn: boolean }) {
     setUser(data?.data!);
   };
   const refresh = async () => {
-    await clearTimeout(rtSchedule);
+    clearTimeout(rtSchedule);
     await silentRefresh();
     if (!user) await setUserState();
   };
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && user) {
       refresh();
     }
     if (user) return;

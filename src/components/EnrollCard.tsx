@@ -4,17 +4,11 @@ import { type IEnroll } from "../api/enroll/api";
 import { toDateString } from "../lib/dateFormat";
 import { toPassLevelStr } from "../lib/passLevelToStr";
 
-function EnrollCard({
-  enroll,
-  clubId,
-}: {
-  enroll: IEnroll;
-  clubId: string | string[];
-}) {
+function EnrollCard({ enroll }: { enroll: IEnroll }) {
   return (
     <Link
       className="hover:text-indigo-400"
-      href={`/club/${clubId.toString()}/admin/enroll/${enroll?.id.toString()}`}
+      href={`/me/enroll/${enroll?.id.toString()}`}
     >
       <div className="flex-col justify-between gap-2 rounded-xl py-3 px-4 shadow-lg sm:flex sm:px-6">
         <div className="flex gap-4">

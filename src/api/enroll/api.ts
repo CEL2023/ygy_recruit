@@ -43,6 +43,11 @@ export const getMyEnrolls = async () => {
     return await fetcher.get<IEnroll[]>("/api/v1/me/enrolls");
   } catch (e) {}
 };
+export const getMyEnroll = async (enrollId: string | string[]) => {
+  try {
+    return await fetcher.get<IEnroll[]>(`/api/v1/me/enroll/${enrollId}`);
+  } catch (e) {}
+};
 
 export const submitEnroll = async (
   clubId: number,

@@ -66,7 +66,7 @@ function Page() {
                     >
                       관리자페이지
                     </button>
-                  ) : (
+                  ) : !user ? null : (
                     <button
                       onClick={() => push(`/club/${clubId}/form`)}
                       disabled={!!user?.rank}

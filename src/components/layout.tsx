@@ -1,5 +1,6 @@
 import React from "react";
 import GlobalLoader from "./GlobalLoader";
+import GlobalModal from "./GlobalModal";
 import NavBar from "./navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
