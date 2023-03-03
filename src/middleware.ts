@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { ISignInUser } from "./pages/signin";
-const url = process?.env?.BASE_URL ?? "http://localhost:3001";
+const url = process?.env?.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3001";
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
