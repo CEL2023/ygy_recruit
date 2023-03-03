@@ -32,7 +32,7 @@ function TokenCore({ isLoggedIn }: { isLoggedIn: boolean }) {
     }
     if (user) return;
     if (
-      (window.performance.getEntries()[0] as PerformanceNavigationTiming)
+      (window?.performance?.getEntries()[0] as PerformanceNavigationTiming)
         .type == "reload" &&
       user
     ) {
