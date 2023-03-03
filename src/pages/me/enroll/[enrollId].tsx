@@ -25,6 +25,7 @@ export default function Page() {
   >({
     queryKey: ["club/canEnroll", data?.data[0]?.clubId],
     queryFn: () => canEnrollToClub(data?.data[0]?.clubId.toString()!),
+    enabled: !!data,
   });
   const { data: form, isLoading: isFormLoading } = useQuery<
     any,
@@ -37,6 +38,7 @@ export default function Page() {
         data?.data[0]?.clubId.toString()!,
         data?.data[0]?.formId.toString()!
       ),
+    enabled: !!canEnroll,
   });
   return (
     <div>

@@ -54,8 +54,8 @@ export const getClubForm = async (clubId: string | string[]) => {
   } catch (e) {}
 };
 export const getClubFormById = async (
-  formId: string | string[],
-  clubId: string | string[]
+  clubId: string | string[],
+  formId: string | string[]
 ) => {
   try {
     return await fetcher.get<IForm>(
