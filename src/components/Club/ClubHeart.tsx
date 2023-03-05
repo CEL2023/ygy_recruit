@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { changeLike } from "../api/club";
+import { changeLike } from "../../api/club";
 import { HeartIcon as HeartOutline } from "@heroicons/react/outline";
 interface props {
   isLiked: boolean;

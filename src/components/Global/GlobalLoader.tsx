@@ -1,6 +1,6 @@
 import Lottie from "react-lottie";
-import loader from "../../public/lotties/loader.json";
-import { useLoading } from "../zustand/Loading";
+import loader from "../../../public/lotties/loader.json";
+import { useLoading } from "../../zustand/Loading";
 function GlobalLoader() {
   const { isLoading } = useLoading();
   const defaultOptions = {

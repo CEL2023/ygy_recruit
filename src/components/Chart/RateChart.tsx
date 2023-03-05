@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import React from "react";
-import { getAllClubStats, IClubStats } from "../api/club";
-import { toRateStr } from "../lib/changeToRate";
+import { getAllClubStats, IClubStats } from "../../api/club";
+import { toRateStr } from "../../lib/changeToRate";
 
 function RateChart() {
   const { data, isLoading } = useQuery<any, AxiosError, { data: IClubStats[] }>(

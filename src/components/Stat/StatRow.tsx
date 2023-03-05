@@ -1,5 +1,5 @@
 import React from "react";
-import { type IClubStats } from "../api/club";
+import { type IClubStats } from "../../api/club";
 import StatCard from "./StatCard";
 interface StatRowProp {
   data: IClubStats;

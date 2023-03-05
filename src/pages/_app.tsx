@@ -1,5 +1,5 @@
 import { type AppContext, type AppProps } from "next/app";
-import Layout from "../components/layout";
+import Layout from "../components/Global/layout";
 import { ThemeProvider } from "next-themes";
 import "../styles/globals.css";
 import {
@@ -7,12 +7,12 @@ import {
   QueryClientProvider,
   QueryErrorResetBoundary,
 } from "@tanstack/react-query";
-import TokenCore from "../components/TokenCore";
+import TokenCore from "../components/Global/TokenCore";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import GlobalModal from "../components/GlobalModal";
-import Ask from "../components/Ask";
-import ErrorBoundary from "../components/ErrorBoundary";
-import ErrorPage from "../components/ErrorPage";
+import GlobalModal from "../components/Global/GlobalModal";
+import Ask from "../components/Global/Ask";
+import ErrorBoundary from "../components/Error/ErrorBoundary";
+import ErrorPage from "../components/Error/ErrorPage";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -36,7 +36,7 @@ const MyApp = ({
         <GlobalModal />
         <Ask />
         <Layout>
-          <ErrorBoundary fallback={ErrorPage}>
+          <ErrorBoundary>
             <Component {...pageProps} />
           </ErrorBoundary>
         </Layout>

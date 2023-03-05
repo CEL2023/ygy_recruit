@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { useGlobalModal } from "../zustand/GlobalModalStore";
+import { useGlobalModal } from "../../zustand/GlobalModalStore";
 import { Dialog, Transition } from "@headlessui/react";
 function GlobalModal() {
   const { isOpen, message, setGMOpen } = useGlobalModal();

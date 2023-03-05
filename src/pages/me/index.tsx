@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { getMyEnrolls, type IEnroll } from "../../api/enroll/api";
-import EnrollCard from "../../components/EnrollCard";
+import EnrollCard from "../../components/Enroll/EnrollCard";
 import { useLogout } from "../../hooks/useLogout";
 import { useUserStore } from "../../zustand/User";
 

@@ -1,9 +1,12 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import React from "react";
-const ChartWithOutSSR = dynamic(() => import("../components/MainPageChart"), {
-  ssr: false,
-});
+const ChartWithOutSSR = dynamic(
+  () => import("../components/Chart/MainPageChart"),
+  {
+    ssr: false,
+  }
+);
 function index() {
   return (
     <div>

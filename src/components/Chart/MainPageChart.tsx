@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useTheme } from "next-themes";
 import ApexChart from "react-apexcharts";
-import { getAllClubStats, IClubStats } from "../api/club";
-import { toRateStr } from "../lib/changeToRate";
+import { getAllClubStats, IClubStats } from "../../api/club";
+import { toRateStr } from "../../lib/changeToRate";
 function MainPageChart() {
   const { setTheme, systemTheme, theme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;

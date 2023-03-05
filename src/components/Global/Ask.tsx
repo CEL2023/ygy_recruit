@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useAsk } from "../zustand/AskStore";
+import { useAsk } from "../../zustand/AskStore";
 function Ask() {
   const { isOpen, message, setAskOpen, selection } = useAsk();
   return (

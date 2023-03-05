@@ -8,7 +8,7 @@ import {
   type IClubStats,
   mutateClubInfo,
 } from "../../../../api/club";
-import StatRow from "../../../../components/StatRow";
+import StatRow from "../../../../components/Stat/StatRow";
 import {
   getClubForms,
   type IFormWithOutContent,

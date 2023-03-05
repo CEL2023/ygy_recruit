@@ -14,6 +14,7 @@ function AccountSettings() {
   const { mutateAsync: mutateAsyncPWD } = useMutation({
     mutationKey: ["me/pwd/update"],
     mutationFn: () => changePassword({ prevPWD, newPWD }),
+    useErrorBoundary: false,
     onError(error, variables, context) {
       setGMOpen(true, { title: "오류", content: "비밀번호가 잘못되었습니다" });
       setNewPWD("");
@@ -27,6 +28,7 @@ function AccountSettings() {
   const { mutateAsync: mutateAsyncSId } = useMutation({
     mutationKey: ["me/SId/update"],
     mutationFn: () => changeSId({ studentId: SId }),
+    useErrorBoundary: false,
     onSuccess(data, variables, context) {
       setGMOpen(true, { title: "알림", content: "성공적으로 변경 되었습니다" });
       setSId(user?.studentId!);

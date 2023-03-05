@@ -1,6 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { ISignInUser } from "./pages/signin";
-const url = process?.env?.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3001";
+const url =
+  process?.env?.NODE_ENV === "production"
+    ? process?.env?.NEXT_PUBLIC_BASE_URL ?? "https://api.kghigh.com"
+    : "http://localhost:3000";
+const clienturl =
+  process?.env?.NODE_ENV === "production"
+    ? "https://kghigh.com"
+    : "http://localhost:3001";
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -13,6 +20,10 @@ export async function middleware(request: NextRequest) {
   const access_token = request.cookies.get("access_token");
   const refresh_token = request.cookies.get("refresh_token");
   const response = NextResponse.next();
+  if (pathname.includes("/me") && (!access_token || !refresh_token))
+    return NextResponse.redirect(clienturl + "/signin");
+  if (pathname.includes("/signin") && access_token)
+    return NextResponse.redirect(clienturl + "/");
   if (access_token) {
     response.headers.set("isLoggedIn", "true");
     return response;

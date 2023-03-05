@@ -2,7 +2,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { UserIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import { Fragment } from "react";
-import { useLogout } from "../hooks/useLogout";
+import { useLogout } from "../../hooks/useLogout";
 const solutions = [
   {
     name: "마이페이지",

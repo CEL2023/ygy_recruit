@@ -3,7 +3,7 @@ import { type AxiosError } from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { getClub, type IClub } from "../../../api/club";
-import ClubHeart from "../../../components/ClubHeart";
+import ClubHeart from "../../../components/Club/ClubHeart";
 import VertProfileCard from "../../../components/VertProfileCard";
 import { useGlobalModal } from "../../../zustand/GlobalModalStore";
 import { useUserStore } from "../../../zustand/User";

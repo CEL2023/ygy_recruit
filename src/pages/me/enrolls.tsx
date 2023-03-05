@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { getMyEnrolls, IEnroll } from "../../api/enroll/api";
-import EnrollCard from "../../components/EnrollCard";
+import EnrollCard from "../../components/Enroll/EnrollCard";
 import { useUserStore } from "../../zustand/User";
 
 function Enrolls() {

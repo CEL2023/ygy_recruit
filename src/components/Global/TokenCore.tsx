@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { fetchMe } from "../api/auth/fetchMe";
-import { fetcher } from "../api/fetcher";
-import useWindowFocus from "../hooks/useWindowFocus";
-import { useUserStore } from "../zustand/User";
+import { fetchMe } from "../../api/auth/fetchMe";
+import { fetcher } from "../../api/fetcher";
+import useWindowFocus from "../../hooks/useWindowFocus";
+import { useUserStore } from "../../zustand/User";
 
 function TokenCore({ isLoggedIn }: { isLoggedIn: boolean }) {
   const { user, setUser } = useUserStore();
