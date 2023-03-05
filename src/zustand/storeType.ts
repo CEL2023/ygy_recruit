@@ -19,6 +19,15 @@ export interface IGlobalModal {
   message?: IMessageField;
   setGMOpen: (open: boolean, MessageField?: IMessageField) => void;
 }
+export interface IPriorityTab {
+  isOpen: boolean;
+  priorities?: number[];
+  selectedPriority?: number;
+  setPTOpen: (
+    open: boolean,
+    ele?: { priorityLists?: number[]; priority?: number }
+  ) => void;
+}
 export interface ISelection {
   yes?: string;
   no?: string;

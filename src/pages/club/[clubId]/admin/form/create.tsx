@@ -15,6 +15,7 @@ import { XIcon } from "@heroicons/react/solid";
 import { useGlobalModal } from "../../../../../zustand/GlobalModalStore";
 import QTitle from "../../../../../components/FormContents/QTitle";
 import QCreateTools from "../../../../../components/FormContents/QCreateTools";
+
 type questionTypes = "short" | "multiple" | "paragraph" | "dropdown";
 export interface IField {
   id: number;
@@ -60,12 +61,15 @@ export default function Form() {
       })
     );
   };
-  const deleteList = ({ id }: { id: number }) => {
-    setFormContent((prev: IField[]) =>
-      prev.filter((item: IField) => {
-        return item.id !== id;
-      })
-    );
+  const deleteList = ({ id, idx }: { id: number; idx: number }) => {
+    const formFields = [...formContent];
+    const fieldIndex = formFields.findIndex((f: IField) => f.id === id);
+    if (fieldIndex > -1) {
+      formFields[fieldIndex]!.list = formFields[fieldIndex]!.list?.filter(
+        (_, index) => index !== idx
+      );
+      setFormContent(formFields);
+    }
   };
   const editField = ({ id, label }: { id: number; label: string }) => {
     let newP;
@@ -197,7 +201,7 @@ export default function Form() {
                                       (item: string, index: number) => (
                                         <div
                                           key={`${item}_${index}_${field.id}_multiple`}
-                                          className="flex items-center rounded border border-gray-200 pl-4 dark:border-gray-700"
+                                          className="m-2 flex items-center rounded-lg border border-gray-200 pl-4 dark:border-gray-700"
                                         >
                                           <input
                                             id={`${item}-checkbox-${index}`}
@@ -211,6 +215,16 @@ export default function Form() {
                                           >
                                             {item}
                                           </label>
+                                          <div
+                                            onClick={() => {
+                                              deleteList({
+                                                id: field.id,
+                                                idx: index,
+                                              });
+                                            }}
+                                          >
+                                            <XIcon className="mr-4 h-6 w-6 text-red-500 hover:text-red-900" />
+                                          </div>
                                         </div>
                                       )
                                     )}

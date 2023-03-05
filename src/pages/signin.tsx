@@ -110,12 +110,18 @@ function SignIn() {
             </button>
           </div>
           <div className="my-2 text-center">OR</div>
-          <div className="flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center">
             <Link
               className="text-indigo-700 dark:text-sky-300"
               href={"/signup"}
             >
               SIGN UP
+            </Link>
+            <Link
+              className="text-indigo-700 dark:text-sky-300"
+              href={"/find-my-pwd"}
+            >
+              비밀번호를 잊으셨나요? 비밀번호 찾기
             </Link>
           </div>
         </form>

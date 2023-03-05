@@ -32,7 +32,7 @@ function AdminEnrollCard({
                     ? "text-violet-600"
                     : enroll?.passLevel == 4
                     ? "text-orange-900"
-                    : "text-amber-200"
+                    : "text-amber-600"
                 }`}
               >
                 {toPassLevelStr(enroll?.passLevel).status}

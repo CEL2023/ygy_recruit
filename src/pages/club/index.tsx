@@ -15,7 +15,7 @@ function Page() {
         <div>loading...</div>
       ) : (
         <div className="mx-auto items-center justify-center">
-          <div className=" mx-2 grid gap-1 sm:w-full sm:grid-cols-1 md:mx-auto md:w-fit md:grid-cols-2 lg:grid-cols-3">
+          <div className=" mx-2 mt-8 grid gap-1 sm:w-full sm:grid-cols-1 md:mx-auto md:w-fit md:grid-cols-2 lg:grid-cols-3">
             {data?.data?.map((item, index: number) => (
               <ClubCard key={index} club={item} />
             ))}

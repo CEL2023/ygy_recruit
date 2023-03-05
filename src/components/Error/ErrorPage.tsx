@@ -28,8 +28,14 @@ function ErrorPage({ message, name }: { message: string; name: string }) {
             메인으로
           </button>
           <button
+            onClick={() => reload()}
+            className="mx-auto w-48 rounded-xl bg-[#7ca6de] px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-[#668fc5]"
+          >
+            새로고침
+          </button>
+          <button
             onClick={() => push(`/me`)}
-            className="mx-auto w-48 rounded-xl bg-cyan-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-green-400"
+            className="mx-auto w-48 rounded-xl bg-cyan-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-cyan-700"
           >
             마이페이지
           </button>

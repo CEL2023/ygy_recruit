@@ -23,7 +23,7 @@ function FormView({ formContent, title, subTitle, clubId, formId }: props) {
     mutationFn: () => editClubForm(clubId!, formId!, { content: formContent }),
   });
   const { mutateAsync: mutateDeleteAsync } = useMutation({
-    mutationKey: [`form/create/club/delete`, clubId],
+    mutationKey: [`form/create/club/delete`, clubId, formId],
     mutationFn: () => deleteClubForm(clubId!, formId!),
     onSuccess: async () => {
       await push(`/club/${clubId}/admin`);
@@ -84,7 +84,7 @@ function FormView({ formContent, title, subTitle, clubId, formId }: props) {
                       {field?.list?.map((item: any, index: number) => (
                         <div
                           key={index}
-                          className="flex items-center rounded border border-gray-200 pl-4 dark:border-gray-700"
+                          className="m-2 flex items-center rounded-lg border border-gray-200 pl-4 dark:border-gray-700"
                         >
                           <input
                             id={`${item}-checkbox-${index}`}
