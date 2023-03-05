@@ -24,6 +24,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(clienturl + "/signin");
   if (pathname.includes("/signin") && access_token)
     return NextResponse.redirect(clienturl + "/");
+  if (pathname.includes("/find-my-pwd") && access_token)
+    return NextResponse.redirect(clienturl + "/");
   if (access_token) {
     response.headers.set("isLoggedIn", "true");
     return response;

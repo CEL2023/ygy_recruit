@@ -1,1 +1,1 @@
-export const MINLENGTH = 8;
+export const MINLENGTH = 6;

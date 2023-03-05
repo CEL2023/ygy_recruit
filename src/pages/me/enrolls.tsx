@@ -21,8 +21,8 @@ function Enrolls() {
   return (
     <div>
       {!user?.rank ? (
-        <div className=" m-8 mx-auto flex flex-col gap-2 border-b">
-          <div className=" text-bold m-4 mt-6 text-center text-4xl">
+        <div className=" m-16 flex flex-col gap-2 border-b">
+          <div className=" text-bold m-8 mt-6 text-center text-4xl">
             나의 지원
           </div>
           {data?.data?.map((item, index) => {

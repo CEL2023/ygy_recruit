@@ -33,7 +33,7 @@ function FormView({ formContent, title, subTitle }: props) {
                       {field?.list?.map((item: any, index: number) => (
                         <div
                           key={index}
-                          className="flex items-center rounded border border-gray-200 pl-4 dark:border-gray-700"
+                          className="m-2 flex items-center rounded-lg border border-gray-200 pl-4 dark:border-gray-700"
                         >
                           <input
                             id={`${item}-checkbox-${index}`}

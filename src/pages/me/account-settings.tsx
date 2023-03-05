@@ -47,7 +47,7 @@ function AccountSettings() {
     await mutateAsyncSId();
   };
   return (
-    <div className="mx-auto mt-10 flex max-w-md flex-col gap-4">
+    <div className=" mx-4 mt-10 flex max-w-md flex-col gap-4 md:mx-auto">
       <form
         onSubmit={(e) => {
           e.preventDefault();

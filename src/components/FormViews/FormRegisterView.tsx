@@ -3,9 +3,11 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { submitEnroll } from "../../api/enroll/api";
+import { fetcher } from "../../api/fetcher";
 import { validate } from "../../lib/validate";
 import { IField } from "../../pages/club/[clubId]/admin/form/create";
 import { useGlobalModal } from "../../zustand/GlobalModalStore";
+import { usePriorityTab } from "../../zustand/PriorityStore";
 interface props {
   formId: number;
   clubId: number;
@@ -25,6 +27,8 @@ function FormRegisterView({
   const { setGMOpen } = useGlobalModal();
   const { push, back } = useRouter();
   const [loading, setLoading] = useState(false);
+  const [waitingForPriorty, setWFPR] = useState(false);
+  const [formData, setFormData] = useState<any>();
   useEffect(() => {
     console.log({ formContent });
     if (formContent?.length == 0) {
@@ -50,18 +54,54 @@ function FormRegisterView({
     defaultValues: formAnswer ?? undefined,
   });
   const [saveMethod, setSave] = useState(false);
+  const { selectedPriority, setPTOpen, isOpen } = usePriorityTab();
   const { mutateAsync } = useMutation({
     mutationKey: ["club/enroll", formId],
-    mutationFn: ({ saveMethod, ...data }: any) =>
-      submitEnroll(formId, clubId, saveMethod, data!),
+    useErrorBoundary: false,
+    mutationFn: ({ saveMethod, priority, ...data }: any) =>
+      submitEnroll(formId, clubId, saveMethod, priority, data!),
+    onSuccess: (data, variables, context) => {
+      setGMOpen(true, {
+        title: "축하합니다",
+        content: "성공적으로 제출되었습니다",
+      });
+    },
+    onError: () => {
+      setGMOpen(true, {
+        title: "오류",
+        content: "제출에 실패하였습니다",
+      });
+    },
   });
+  const realSubmit = async () => {
+    await mutateAsync({ ...formData, saveMethod, priority: selectedPriority });
+    await push("/me/enrolls");
+  };
   const submit: SubmitHandler<any> = async (data) => {
-    try {
+    if (saveMethod == false) {
       console.log({ data });
       await mutateAsync({ ...data, saveMethod });
       await push("/me/enrolls");
-    } catch (e) {}
+      return;
+    }
+    const possible = await fetcher.get<number[]>("/api/v1/me/possiblePriority");
+    if (possible.data.length == 0) {
+      setGMOpen(true, {
+        content: "더 이상 지원할 수 없습니다",
+        title: "경고",
+      });
+      return;
+    }
+    setWFPR(true);
+    setFormData(data);
+    setPTOpen(true, { priorityLists: possible.data });
   };
+  useEffect(() => {
+    if (waitingForPriorty && !isOpen) {
+      realSubmit();
+      setWFPR(false);
+    }
+  }, [isOpen]);
   return (
     <>
       {loading ? (
@@ -95,7 +135,7 @@ function FormRegisterView({
                           {field?.list?.map((item: string, index: number) => (
                             <div
                               key={index}
-                              className="flex items-center rounded border border-gray-200 pl-4 dark:border-gray-700"
+                              className="m-2 flex items-center rounded-lg border border-gray-200 pl-4 dark:border-gray-700"
                             >
                               <input
                                 id={`${item}-radio-${index}`}
