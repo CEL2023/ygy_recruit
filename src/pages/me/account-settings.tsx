@@ -33,6 +33,10 @@ function AccountSettings() {
       setGMOpen(true, { title: "알림", content: "성공적으로 변경 되었습니다" });
       setSId(user?.studentId!);
     },
+    onError(error, variables, context) {
+      setGMOpen(true, { title: "오류", content: "뭔가 오류 있음" });
+      setNewPWD("");
+    },
   });
   const checkPWD = async () => {
     if (!validate.password(newPWD)) return;

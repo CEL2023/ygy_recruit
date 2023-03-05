@@ -5,7 +5,7 @@ import { type IClub } from "../../api/club";
 function ClubCard({ club }: { club: IClub }) {
   return (
     <Link href={`/club/${club.id}`} key={club.name}>
-      <div className=" clubs-center group w-96 flex-col justify-between overflow-hidden rounded-lg text-xl shadow dark:bg-slate-600">
+      <div className=" clubs-center group w-full flex-col justify-between overflow-hidden rounded-lg text-xl shadow dark:bg-slate-600 md:w-96">
         <div className="clubs-center relative flex h-48 w-full justify-center object-cover transition-transform duration-300 ease-in-out group-hover:scale-105">
           <Image
             alt=""

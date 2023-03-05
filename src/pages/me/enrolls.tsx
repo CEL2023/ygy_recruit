@@ -8,14 +8,14 @@ import { useUserStore } from "../../zustand/User";
 
 function Enrolls() {
   const { user } = useUserStore();
-  const { back } = useRouter();
+  const { back, push } = useRouter();
   const { data, isLoading } = useQuery<any, AxiosError, { data: IEnroll[] }>({
     queryKey: [`user/enroll`, user?.username],
     queryFn: getMyEnrolls,
   });
   useEffect(() => {
     if (user?.rank && user?.rank > 0) {
-      back();
+      push("/me");
     }
   }, []);
   return (

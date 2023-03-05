@@ -43,7 +43,7 @@ function MainPageChart() {
               xaxis: {
                 axisBorder: { show: false },
                 axisTicks: { show: false },
-                labels: { show: true, style: { colors: "white" } },
+                labels: { show: true },
                 categories: data?.data?.map((item) => item.club.name),
               },
               fill: {
