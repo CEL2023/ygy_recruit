@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import React from "react";
 import { getAllClub, IClub } from "../../api/club";
-import ClubCard from "../../components/ClubCard";
+import ClubCard from "../../components/Club/ClubCard";
 
 function Page() {
   const { data, isLoading } = useQuery<any, AxiosError, { data: IClub[] }>({

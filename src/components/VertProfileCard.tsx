@@ -4,10 +4,7 @@ import { toRankString } from "../lib/rankToStr";
 
 function VertProfileCard({ user }: { user: IMember | null }) {
   return (
-    <Link
-      href={`/user/${user?.username.toString()}`}
-      className="focus:shadow-outline h-10 items-center justify-center break-words rounded py-1 px-4 text-base font-bold"
-    >
+    <div className="focus:shadow-outline h-10 items-center justify-center break-words rounded py-1 px-4 text-base font-bold">
       <div className="flex items-center justify-center gap-2">
         <div className="items-center justify-center text-center">
           {toRankString(user?.rank ?? 0)}
@@ -19,7 +16,7 @@ function VertProfileCard({ user }: { user: IMember | null }) {
           {user?.name}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

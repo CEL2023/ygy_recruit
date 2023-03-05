@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { getClubSubmittedEnroll } from "../../../../../api/enroll/api";
 import { getClubFormById, IForm } from "../../../../../api/form/api";
-import FormResultView from "../../../../../components/FormResultView";
+import FormResultView from "../../../../../components/FormViews/FormResultView";
 
 function EnrollDetail() {
   const {
@@ -20,7 +20,7 @@ function EnrollDetail() {
     isFetched: isFormFetched,
   } = useQuery<any, AxiosError, { data: IForm }>({
     queryKey: ["club/admin/form"],
-    queryFn: () => getClubFormById(data?.data![0]?.formId.toString()!, clubId!),
+    queryFn: () => getClubFormById(clubId!, data?.data![0]?.formId.toString()!),
     enabled: !!data,
   });
   return (

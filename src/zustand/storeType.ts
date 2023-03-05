@@ -9,7 +9,28 @@ export interface ILoading {
   isLoading: boolean;
   setGLLoading: (input: boolean) => void;
 }
+export interface IMessageField {
+  title: string;
+  content: string;
+  closeText?: string;
+}
 export interface IGlobalModal {
   isOpen: boolean;
-  setGMOpen: (input: boolean) => void;
+  message?: IMessageField;
+  setGMOpen: (open: boolean, MessageField?: IMessageField) => void;
+}
+export interface ISelection {
+  yes?: string;
+  no?: string;
+  selected: "yes" | "no" | "none";
+}
+export interface IAsk {
+  isOpen: boolean;
+  message?: IMessageField;
+  selection?: ISelection;
+  setAskOpen: (
+    open: boolean,
+    selection?: ISelection,
+    MessageField?: IMessageField
+  ) => void;
 }

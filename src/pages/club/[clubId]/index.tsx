@@ -3,8 +3,9 @@ import { type AxiosError } from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { getClub, type IClub } from "../../../api/club";
-import ClubHeart from "../../../components/ClubHeart";
+import ClubHeart from "../../../components/Club/ClubHeart";
 import VertProfileCard from "../../../components/VertProfileCard";
+import { useGlobalModal } from "../../../zustand/GlobalModalStore";
 import { useUserStore } from "../../../zustand/User";
 
 function Page() {
@@ -17,7 +18,17 @@ function Page() {
     queryKey: [`club`, clubId],
     queryFn: () => getClub(parseInt(clubId! as string)),
   });
-
+  const { setGMOpen } = useGlobalModal();
+  const checkIsAdmin = () => {
+    if (!user?.isManageAdmin && !!user?.rank) {
+      setGMOpen(true, {
+        title: "알림",
+        content: "관리자는 지원할 수 없습니다 관리자페이지를 이용해주세요",
+      });
+      return true;
+    }
+    return false;
+  };
   return (
     <div>
       {isLoading ? (
@@ -35,7 +46,7 @@ function Page() {
               }
               alt=""
             />
-            <div className="absolute bottom-4 right-4 text-4xl font-medium text-black">
+            <div className="dark:bg-opacity-85 absolute left-1 bottom-0 rounded-t-2xl bg-white p-4 py-2 text-2xl font-bold text-black dark:bg-[#212121] dark:text-white">
               {data?.data?.name}
             </div>
             <ClubHeart
@@ -54,12 +65,15 @@ function Page() {
               <div className=" basis-1/4 flex-col items-center rounded-2xl sm:flex-row sm:p-4 sm:shadow-xl">
                 <div className="text-center text-2xl font-semibold">부원</div>
                 <div>
-                  {data?.data?.members?.map((item, index: number) => {
-                    return <VertProfileCard key={index} user={item} />;
-                  })}
+                  {data?.data?.members
+                    ?.sort((a, b) => b.rank - a.rank)
+                    .map((item, index: number) => {
+                      return <VertProfileCard key={index} user={item} />;
+                    })}
                 </div>
                 <div className=" mx-2 flex gap-4 sm:flex-col">
-                  {user?.rank && user?.rank >= 1 && user?.clubId == clubId ? (
+                  {user?.isManageAdmin ||
+                  (user?.rank && user?.rank >= 1 && user?.clubId == clubId) ? (
                     <button
                       onClick={() => push(`/club/${clubId}/admin`)}
                       className="mx-auto w-48 rounded-xl bg-green-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-green-400"
@@ -68,8 +82,11 @@ function Page() {
                     </button>
                   ) : !user ? null : (
                     <button
-                      onClick={() => push(`/club/${clubId}/form`)}
-                      disabled={!!user?.rank}
+                      onClick={() => {
+                        const isAMI = checkIsAdmin();
+                        if (isAMI) return;
+                        push(`/club/${clubId}/form`);
+                      }}
                       className="mx-auto w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
                     >
                       지원하기

@@ -8,7 +8,7 @@ import {
   type IClubStats,
   mutateClubInfo,
 } from "../../../../api/club";
-import StatRow from "../../../../components/StatRow";
+import StatRow from "../../../../components/Stat/StatRow";
 import {
   getClubForms,
   type IFormWithOutContent,
@@ -57,22 +57,6 @@ function Page() {
       {isLoading ? <div>loading....</div> : <StatRow data={data?.data!} />}
       <div className="my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 md:mx-0 md:py-4 md:px-8">
         <div>
-          <div className=" m-2 ml-0 text-xl font-semibold">동아리 배경사진</div>
-          <div className="relative h-48">
-            <Image
-              fill
-              className=" z-0 object-contain"
-              src={
-                data?.data?.club?.bgImg == "" ||
-                data?.data?.club?.bgImg == undefined
-                  ? "/ferris.jpg"
-                  : data?.data?.club?.bgImg
-              }
-              alt=""
-            />
-          </div>
-        </div>
-        <div>
           <div className="m-2 ml-0 text-xl font-semibold">동아리 설명</div>
           <textarea
             value={desc}
@@ -93,12 +77,18 @@ function Page() {
       </div>
       <div
         onClick={() => push(`/club/${clubId}/admin/enroll`)}
-        className="my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-normal hover:text-indigo-500 md:mx-0 md:py-4 md:px-8"
+        className="rounded-x my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-semibold hover:text-indigo-500 md:mx-0 md:py-4 md:px-8"
       >
         제출된 지원서 보러가기 &gt;
       </div>
-      <div className="my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-normal  md:mx-0 md:py-4 md:px-8">
+      <div className="my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-semibold  md:mx-0 md:py-4 md:px-8">
         <div>지원서 양식 보기</div>
+        <div className="font-normal">
+          가장 위에 있는 지원서가 실제 지원서로 사용됩니다
+        </div>
+        <div className="font-normal">
+          꼭 지원서 배포 전까지 사용할 지원서 외의 지원서는 삭제 부탁드립니다
+        </div>
         {!isLoadingForms
           ? form?.data?.map((item) => {
               return (

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import { type IEnroll } from "../api/enroll/api";
-import { toDateString } from "../lib/dateFormat";
-import { toPassLevelStr } from "../lib/passLevelToStr";
+import { type IEnroll } from "../../api/enroll/api";
+import { toDateString } from "../../lib/dateFormat";
+import { toPassLevelStr } from "../../lib/passLevelToStr";
 
 function EnrollCard({ enroll }: { enroll: IEnroll }) {
   return (

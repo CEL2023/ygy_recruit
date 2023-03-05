@@ -2,24 +2,26 @@ import { useQuery } from "@tanstack/react-query";
 import { type AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { getClubFormById, type IForm } from "../../../../../api/form/api";
-import FormPreview from "../../../../../components/FormPreview";
+import FormEditablePreview from "../../../../../components/FormViews/FormEditablePreview";
 export default function Page() {
   const {
     query: { clubId, formId },
   } = useRouter();
   const { data, isLoading } = useQuery<any, AxiosError, { data: IForm }>({
     queryKey: ["club/admin/form", formId],
-    queryFn: () => getClubFormById(formId!, clubId!),
+    queryFn: () => getClubFormById(clubId!, formId!),
   });
   return (
     <div>
       {isLoading ? (
         <div>loading...</div>
       ) : (
-        <FormPreview
+        <FormEditablePreview
+          clubId={clubId! as string}
+          formId={formId! as string}
           formContent={data?.data?.content}
-          title="Preview"
-          subTitle=""
+          title="양식 미리보기"
+          subTitle="수정/삭제 가능"
         />
       )}
     </div>
