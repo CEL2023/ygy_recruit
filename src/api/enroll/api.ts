@@ -19,47 +19,53 @@ export interface IEnroll {
 }
 
 export const getAllSubmittedEnroll = async (clubId: string | string[]) => {
-  try {
-    const res = await fetcher.get<IEnroll[]>(
-      `/api/v1/club/${clubId.toString()}/submittedEnroll`
-    );
-    return res;
-  } catch (e) {}
+  const res = await fetcher.get<IEnroll[]>(
+    `/api/v1/club/${clubId.toString()}/submittedEnroll`
+  );
+  return res;
 };
 export const getClubSubmittedEnroll = async (
   clubId: string | string[],
   enrollId: string | string[]
 ) => {
-  try {
-    const res = await fetcher.get<IEnroll[]>(
-      `/api/v1/club/${clubId.toString()}/enroll/${enrollId.toString()}`
-    );
-    return res;
-  } catch (e) {}
+  const res = await fetcher.get<IEnroll[]>(
+    `/api/v1/club/${clubId.toString()}/enroll/${enrollId.toString()}`
+  );
+  return res;
 };
 
 export const getMyEnrolls = async () => {
-  try {
-    return await fetcher.get<IEnroll[]>("/api/v1/me/enrolls");
-  } catch (e) {}
+  return await fetcher.get<IEnroll[]>("/api/v1/me/enrolls");
 };
 export const getMyEnroll = async (enrollId: string | string[]) => {
-  try {
-    return await fetcher.get<IEnroll[]>(`/api/v1/me/enroll/${enrollId}`);
-  } catch (e) {}
+  return await fetcher.get<IEnroll[]>(`/api/v1/me/enroll/${enrollId}`);
 };
 
 export const submitEnroll = async (
-  clubId: number,
   formId: number,
+  clubId: number,
   isEditCompleted: boolean = false,
   data: object = {}
 ) => {
-  try {
-    return await fetcher.post(`/api/v1/club/${clubId.toString()}/enroll`, {
+  return await fetcher.post(`/api/v1/club/${clubId.toString()}/enroll`, {
+    formId,
+    isEditCompleted,
+    data: JSON.stringify(data),
+  });
+};
+export const editEnroll = async (
+  formId: number,
+  clubId: number,
+  enrollId: string,
+  isEditCompleted: boolean = false,
+  data: object = {}
+) => {
+  return await fetcher.patch(
+    `/api/v1/club/${clubId.toString()}/enroll/${enrollId}`,
+    {
       formId,
       isEditCompleted,
-      data,
-    });
-  } catch (e) {}
+      data: JSON.stringify(data),
+    }
+  );
 };

@@ -5,7 +5,7 @@ import {
   getAllSubmittedEnroll,
   type IEnroll,
 } from "../../../../../api/enroll/api";
-import AdminEnrollCard from "../../../../../components/AdminEnrollCard";
+import AdminEnrollCard from "../../../../../components/Enroll/AdminEnrollCard";
 
 function Page() {
   const {

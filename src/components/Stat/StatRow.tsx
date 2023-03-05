@@ -1,5 +1,5 @@
 import React from "react";
-import { type IClubStats } from "../api/club";
+import { type IClubStats } from "../../api/club";
 import StatCard from "./StatCard";
 interface StatRowProp {
   data: IClubStats;
@@ -16,7 +16,7 @@ function StatRow({ data }: StatRowProp) {
       <StatCard
         className="rounded-b-xl md:rounded-r-xl md:rounded-b-none md:rounded-br-xl"
         label={"경쟁률"}
-        count={Math.round((data?.enrolls / data?.limit) * 100) / 100}
+        count={Math.round((data?.enrolls / data?.limit) * 10) / 10}
       />
     </div>
   );

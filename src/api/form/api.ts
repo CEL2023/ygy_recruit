@@ -1,3 +1,4 @@
+import { IField } from "../../pages/club/[clubId]/admin/form/create";
 import { fetcher } from "../fetcher";
 export interface IFormWithOutContent {
   id: number;
@@ -5,7 +6,7 @@ export interface IFormWithOutContent {
   createdAt: Date;
 }
 export interface IForm extends IFormWithOutContent {
-  content: object;
+  content: IField[];
 }
 export interface ICanEnroll {
   ok: boolean;
@@ -17,56 +18,49 @@ export const createClubForm = async (
   clubId: string | string[],
   content: object
 ) => {
-  try {
-    await fetcher.post(`/api/v1/club/${clubId.toString()}/form`, content);
-  } catch (e) {}
+  await fetcher.post(`/api/v1/club/${clubId.toString()}/form`, content);
+};
+export const editClubForm = async (
+  clubId: string | string[],
+  formId: string | string[],
+  content: object
+) => {
+  await fetcher.patch(
+    `/api/v1/club/${clubId.toString()}/form/${formId}`,
+    content
+  );
+};
+export const deleteClubForm = async (
+  clubId: string | string[],
+  formId: string | string[]
+) => {
+  await fetcher.delete(`/api/v1/club/${clubId.toString()}/form/${formId}`);
 };
 export const canEnrollToClub = async (clubId: string | string[]) => {
-  try {
-    return await fetcher.get<ICanEnroll>(
-      `/api/v1/me/canEnroll/club/${clubId.toString()}`
-    );
-  } catch (e) {}
+  return await fetcher.get<ICanEnroll>(
+    `/api/v1/me/canEnroll/club/${clubId.toString()}`
+  );
 };
 export const getClubForm = async (clubId: string | string[]) => {
-  try {
-    const canEnroll = await canEnrollToClub(clubId);
-    if (canEnroll?.data?.ok) {
-      const formIds = await fetcher.get<IFormWithOutContent[]>(
-        `/api/v1/club/${clubId.toString()}/form`
-      );
-      if (formIds?.data.length == 0)
-        return { id: 0, clubId: 0, createdAt: Date.now(), content: {} };
-      const [filtedId] = formIds?.data
-        .map((item) => {
-          return item.id;
-        })
-        .sort(() => 0.5 - Math.random())!;
-      const res = await fetcher.get<IForm>(
-        `/api/v1/club/${clubId.toString()}/form/${filtedId}`
-      );
-      return res;
-    }
-    if (canEnroll?.data?.hasDraft) {
-      window.location.href = `/me/enroll/${canEnroll?.data.enrollId}`;
-      return;
-    }
-  } catch (e) {}
+  const formIds = await fetcher.get<IFormWithOutContent[]>(
+    `/api/v1/club/${clubId.toString()}/form`
+  );
+  if (formIds?.data.length == 0) return null;
+  const res = await fetcher.get<IForm>(
+    `/api/v1/club/${clubId.toString()}/form/${formIds?.data[0]?.id}`
+  );
+  return res;
 };
 export const getClubFormById = async (
   clubId: string | string[],
   formId: string | string[]
 ) => {
-  try {
-    return await fetcher.get<IForm>(
-      `/api/v1/club/${clubId.toString()}/form/${formId.toString()}`
-    );
-  } catch (e) {}
+  return await fetcher.get<IForm>(
+    `/api/v1/club/${clubId.toString()}/form/${formId.toString()}`
+  );
 };
 export const getClubForms = async (clubId: string | string[]) => {
-  try {
-    return await fetcher.get<IFormWithOutContent[]>(
-      `/api/v1/club/${clubId.toString()}/form`
-    );
-  } catch (e) {}
+  return await fetcher.get<IFormWithOutContent[]>(
+    `/api/v1/club/${clubId.toString()}/form`
+  );
 };

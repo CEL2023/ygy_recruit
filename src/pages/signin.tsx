@@ -16,7 +16,6 @@ export interface IUser {
   name: string;
   studentId: number;
   passwordHash: string;
-  profImg: string;
   rank: number;
   isManageAdmin: boolean;
   createdAt: Date;

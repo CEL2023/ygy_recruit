@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { type IClub } from "../api/club";
+import { type IClub } from "../../api/club";
 
 function ClubCard({ club }: { club: IClub }) {
   return (
@@ -11,6 +11,7 @@ function ClubCard({ club }: { club: IClub }) {
             alt=""
             src={club?.bgImg == "" ? "/ferris.jpg" : club.bgImg}
             fill
+            sizes=""
             className="object-cover"
           />
         </div>
