@@ -45,11 +45,13 @@ export const submitEnroll = async (
   formId: number,
   clubId: number,
   isEditCompleted: boolean = false,
+  priority: number,
   data: object = {}
 ) => {
   return await fetcher.post(`/api/v1/club/${clubId.toString()}/enroll`, {
     formId,
     isEditCompleted,
+    priority,
     data: JSON.stringify(data),
   });
 };
@@ -58,7 +60,8 @@ export const editEnroll = async (
   clubId: number,
   enrollId: string,
   isEditCompleted: boolean = false,
-  data: object = {}
+  data: object = {},
+  priority?: number
 ) => {
   return await fetcher.patch(
     `/api/v1/club/${clubId.toString()}/enroll/${enrollId}`,
@@ -66,6 +69,7 @@ export const editEnroll = async (
       formId,
       isEditCompleted,
       data: JSON.stringify(data),
+      priority,
     }
   );
 };

@@ -1,10 +1,19 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { type IEnroll } from "../../api/enroll/api";
+import { clubIdToStr } from "../../lib/clubIdToStr";
 import { toDateString } from "../../lib/dateFormat";
 import { toPassLevelStr } from "../../lib/passLevelToStr";
 
 function EnrollCard({ enroll }: { enroll: IEnroll }) {
+  const [clubname, setClubName] = useState("");
+  const toName = async () => {
+    const data = await clubIdToStr(enroll.clubId.toString());
+    setClubName(data);
+  };
+  useEffect(() => {
+    toName();
+  }, [enroll]);
   return (
     <Link
       className="hover:text-indigo-400"
@@ -16,6 +25,7 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
             <div>{enroll?.User?.name}</div>
             <div className=" hidden sm:block">{enroll?.User?.username}</div>
             <div>{enroll?.User?.studentId}</div>
+            <div>{clubname}</div>
             <div
               className={`${
                 enroll?.passLevel == 1
@@ -26,8 +36,8 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
                   ? "text-violet-600"
                   : enroll?.passLevel == 4
                   ? "text-orange-900"
-                  : "text-amber-200"
-              }`}
+                  : "text-amber-600"
+              } text-semibold`}
             >
               {toPassLevelStr(enroll?.passLevel)?.status}
             </div>

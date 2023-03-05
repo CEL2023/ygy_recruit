@@ -13,6 +13,7 @@ import GlobalModal from "../components/Global/GlobalModal";
 import Ask from "../components/Global/Ask";
 import ErrorBoundary from "../components/Error/ErrorBoundary";
 import ErrorPage from "../components/Error/ErrorPage";
+import Priority from "../components/Global/Priority";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -35,6 +36,7 @@ const MyApp = ({
       <ThemeProvider attribute="class" enableSystem={true}>
         <GlobalModal />
         <Ask />
+        <Priority />
         <Layout>
           <ErrorBoundary>
             <Component {...pageProps} />
