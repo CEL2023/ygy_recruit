@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { createClubForm } from "../../../../../api/form/api";
-import FormPreview from "../../../../../components/FormPreview";
+import FormPreview from "../../../../../components/FormViews/FormPreview";
 import {
   DragDropContext,
   Draggable,
@@ -11,8 +11,12 @@ import {
   resetServerContext,
 } from "react-beautiful-dnd";
 import { GetServerSideProps } from "next";
-type questionTypes = "short" | "multiple" | "paragraph" | "image" | "dropdown";
-interface IField {
+import { XIcon } from "@heroicons/react/solid";
+import { useGlobalModal } from "../../../../../zustand/GlobalModalStore";
+import QTitle from "../../../../../components/FormContents/QTitle";
+import QCreateTools from "../../../../../components/FormContents/QCreateTools";
+type questionTypes = "short" | "multiple" | "paragraph" | "dropdown";
+export interface IField {
   id: number;
   question: string;
   type: questionTypes;
@@ -24,12 +28,12 @@ export default function Form() {
     query: { clubId },
     push,
   } = useRouter();
-
+  const { setGMOpen } = useGlobalModal();
   const [formContent, setFormContent] = useState<IField[]>([]);
   const [onEdit, setOnEdit] = useState(false);
   const [textField, setTextField] = useState("");
   const [editedField, setEditedField] = useState<number | undefined>(0);
-  const [maxRadio, setMaxRadio] = useState(2);
+  const [maxRadio, setMaxRadio] = useState(0);
   const { mutateAsync } = useMutation({
     mutationKey: [`form/create/club`, clubId],
     mutationFn: () => createClubForm(clubId!, { content: formContent }),
@@ -41,7 +45,7 @@ export default function Form() {
     },
   });
   const addQuestion = () => {
-    const field = {
+    const field: IField = {
       id: formContent.length,
       question: "제목 설정",
       type: "short" as questionTypes, // "paragraph", "multichoice",
@@ -49,42 +53,48 @@ export default function Form() {
     };
     setFormContent([...formContent, field]);
   };
-
-  const editField = (fieldName: number, fieldLabel: string) => {
+  const deleteQuestion = ({ id }: { id: number }) => {
+    setFormContent((prev: IField[]) =>
+      prev.filter((item: IField) => {
+        return item.id !== id;
+      })
+    );
+  };
+  const editField = ({ id, label }: { id: number; label: string }) => {
     let newP;
     setFormContent((prev) => {
       newP = [...prev];
-      newP[fieldName]!.question = fieldLabel;
+      newP[id]!.question = label;
       return newP;
     });
   };
 
-  const editFieldType = (fieldName: number, fieldLabel: string) => {
+  const editFieldType = ({ id, Qtype }: { id: number; Qtype: string }) => {
     let newP;
     setFormContent((prev) => {
       newP = [...prev];
-      newP[fieldName]!.type = fieldLabel as questionTypes;
+      newP[id]!.type = Qtype as questionTypes;
       return newP;
     });
   };
 
-  const addFieldOption = (fieldName: number, option: string) => {
+  const addFieldOption = ({ id, label }: { id: number; label: string }) => {
     const formFields = [...formContent];
-    const fieldIndex = formFields.findIndex((f: IField) => f.id === fieldName);
+    const fieldIndex = formFields.findIndex((f: IField) => f.id === id);
     if (fieldIndex > -1) {
-      if (option && option != "") {
-        formFields[fieldIndex]!.list?.push(option);
+      if (label && label != "") {
+        formFields[fieldIndex]!.list?.push(label);
         setFormContent(formFields);
         setTextField("");
       }
     }
   };
-  const setMax = (fieldName: number, max: number) => {
+  const setMax = ({ id, max }: { id: number; max: number }) => {
     let newP;
     if (max && max > 0) {
       setFormContent((prev) => {
         newP = [...prev];
-        newP[fieldName]!.maxSelect = max;
+        newP[id]!.maxSelect = max;
         return newP;
       });
       setMaxRadio(2);
@@ -92,6 +102,19 @@ export default function Form() {
   };
 
   const sendForm = async () => {
+    if (
+      formContent.length < 1 ||
+      formContent
+        .filter((item) => item.type === ("dropdown" || "multiple"))
+        .filter((ele) => !ele?.list || ele.list?.length < 2).length > 0
+    ) {
+      setGMOpen(true, {
+        title: "알림",
+        content:
+          "최소 1개의 질문이 필요합니다. 복수선택이나 드롭다운은 2개 이상의 보기를 필요로 합니다",
+      });
+      return;
+    }
     await mutateAsync();
   };
 
@@ -143,51 +166,29 @@ export default function Form() {
                             ref={context.innerRef}
                           >
                             <div className="flex items-center justify-between space-y-2">
-                              <div
-                                key={field.id}
-                                className="block bg-white text-sm font-medium capitalize dark:bg-black "
-                              >
-                                {onEdit && editedField == field.id ? (
-                                  <input
-                                    type="text"
-                                    value={field.question || ""}
-                                    onChange={(e) => {
-                                      editField(field.id, e.target.value || "");
-                                    }}
-                                  />
-                                ) : (
-                                  <label
-                                    onClick={(e: any) => {
-                                      setOnEdit(true);
-                                      setEditedField(field.id);
-                                    }}
-                                  >
-                                    {field.question}
-                                  </label>
-                                )}
-                              </div>
-                              <div>
-                                <select
-                                  className="dark block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm  focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                                  onChange={(e) =>
-                                    editFieldType(field.id, e.target.value)
-                                  }
-                                >
-                                  <option value="short">단답형</option>
-                                  <option value="paragraph">서술형</option>
-                                  <option value="dropdown">드롭다운</option>
-                                  <option value="multiple">복수선택</option>
-                                  <option value="image">사진</option>
-                                </select>
-                              </div>
+                              <QTitle
+                                editedField={editedField}
+                                id={field.id}
+                                question={field.question}
+                                onChange={editField}
+                                onClick={() => {
+                                  setOnEdit(true);
+                                  setEditedField(field.id);
+                                }}
+                                onEdit={onEdit}
+                              />
+                              <QCreateTools
+                                id={field.id}
+                                deleteQuestion={deleteQuestion}
+                                onTypeChange={editFieldType}
+                              />
                             </div>
-
                             <div className="my-4">
                               {field.type == "multiple" && (
                                 <div className="my-4 flex flex-col space-y-2">
                                   <fieldset>
                                     {field?.list?.map(
-                                      (item: any, index: number) => (
+                                      (item: string, index: number) => (
                                         <div
                                           key={`${item}_${index}_${field.id}_multiple`}
                                           className="flex items-center rounded border border-gray-200 pl-4 dark:border-gray-700"
@@ -221,12 +222,15 @@ export default function Form() {
                                           : undefined || ""
                                       }
                                       placeholder="옵션추가"
-                                      className="flex-1 rounded-l-md p-2 text-black dark:bg-white"
+                                      className="flex-1 rounded-l-md border p-2 text-black dark:bg-white"
                                     />
                                     <button
                                       className="block rounded-r-md bg-indigo-700 px-4 text-white hover:bg-indigo-900"
                                       onClick={() =>
-                                        addFieldOption(field.id, textField)
+                                        addFieldOption({
+                                          id: field.id,
+                                          label: textField || "",
+                                        })
                                       }
                                     >
                                       추가
@@ -235,17 +239,29 @@ export default function Form() {
                                   <div className="space-between flex">
                                     <input
                                       type="text"
-                                      onChange={(e) =>
-                                        setMaxRadio(+e.target.value)
-                                      }
-                                      value={maxRadio || 2}
+                                      onChange={(e) => {
+                                        const value = Number(e.target.value);
+                                        if (Number.isNaN(value)) {
+                                          return;
+                                        }
+                                        setMaxRadio(value);
+                                      }}
+                                      onBlur={(e) => {
+                                        if (e.target.value === "0") {
+                                          setMaxRadio(2);
+                                        }
+                                      }}
+                                      value={maxRadio}
                                       placeholder="최대선택개수"
-                                      className="flex-1 rounded-l-md p-2 text-black dark:bg-white"
+                                      className="flex-1 rounded-l-md border p-2 text-black dark:bg-white"
                                     />
                                     <button
-                                      className="block rounded-r-md bg-indigo-700 px-4 text-white hover:bg-indigo-900"
+                                      className="rounded-r-md  bg-indigo-700 px-4 text-white hover:bg-indigo-900"
                                       onClick={() =>
-                                        setMax(field.id, maxRadio ?? 2)
+                                        setMax({
+                                          id: field.id,
+                                          max: maxRadio ?? 2,
+                                        })
                                       }
                                     >
                                       설정
@@ -256,14 +272,14 @@ export default function Form() {
                               {field.type == "short" && (
                                 <input
                                   type="text"
-                                  className="shadow-xs block h-10 w-full rounded-md px-5  text-black dark:bg-white"
+                                  className="shadow-xs block h-10 w-full rounded-md border px-5  text-black dark:bg-white"
                                   placeholder={field.question}
                                 />
                               )}
                               {field.type == "paragraph" && (
                                 <textarea
                                   rows={4}
-                                  className="block h-10 w-full rounded-md px-5 py-2 text-black shadow-sm dark:bg-white"
+                                  className="block h-10 w-full rounded-md border px-5  py-2 text-black shadow-sm dark:bg-white"
                                   placeholder={field.question}
                                 />
                               )}
@@ -271,7 +287,7 @@ export default function Form() {
                                 <div className="my-4 flex flex-col space-y-2">
                                   <select className="dark block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm  focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                                     {field?.list?.map(
-                                      (item: any, index: number) => (
+                                      (item: string, index: number) => (
                                         <option
                                           key={`${item}_${index}_${field.id}_DD`}
                                           value={item}
@@ -294,12 +310,15 @@ export default function Form() {
                                           : undefined || ""
                                       }
                                       placeholder="옵션추가"
-                                      className="flex-1 rounded-l-md p-2 text-black dark:bg-white"
+                                      className="flex-1 rounded-l-md border p-2 text-black dark:bg-white "
                                     />
                                     <button
                                       className="block rounded-r-md bg-indigo-700 px-4 text-white hover:bg-indigo-900"
                                       onClick={() =>
-                                        addFieldOption(field.id, textField)
+                                        addFieldOption({
+                                          id: field.id,
+                                          label: textField || "",
+                                        })
                                       }
                                     >
                                       추가
@@ -318,7 +337,7 @@ export default function Form() {
                     <div className="absolute inset-x-0 bottom-0 flex w-full justify-center">
                       <button
                         onClick={() => addQuestion()}
-                        className="text-md inline-flex w-full items-center justify-center rounded-md bg-green-700 px-3 py-2 text-center font-semibold text-white hover:bg-green-600"
+                        className="text-md mt-4 inline-flex w-full items-center justify-center rounded-md bg-green-700 px-3 py-2 text-center font-semibold text-white hover:bg-green-600"
                       >
                         질문 추가
                       </button>

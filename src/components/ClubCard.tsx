@@ -11,6 +11,7 @@ function ClubCard({ club }: { club: IClub }) {
             alt=""
             src={club?.bgImg == "" ? "/ferris.jpg" : club.bgImg}
             fill
+            sizes=""
             className="object-cover"
           />
         </div>

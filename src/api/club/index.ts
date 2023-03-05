@@ -53,13 +53,12 @@ export const changeLike = async (isLiked: boolean, clubId: string) => {
   );
 };
 export const getClubStats = async (clubId: string | string[]) => {
-  try {
-    return await fetcher.get<IClubStats>(
-      `/api/v1/club/${clubId.toString()}/stats`
-    );
-  } catch (e) {
-    return e;
-  }
+  return await fetcher.get<IClubStats>(
+    `/api/v1/club/${clubId.toString()}/stats`
+  );
+};
+export const getAllClubStats = async () => {
+  return await fetcher.get<IClubStats[]>(`/api/v1/club/stats`);
 };
 export const mutateClubInfo = async (
   clubId: string | string[],

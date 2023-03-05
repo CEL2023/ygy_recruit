@@ -1,15 +1,15 @@
 import React, { Fragment } from "react";
-import { useGlobalModal } from "../zustand/GlobalModalStore";
 import { Dialog, Transition } from "@headlessui/react";
-function GlobalModal() {
-  const { isOpen, message, setGMOpen } = useGlobalModal();
+import { useAsk } from "../zustand/AskStore";
+function Ask() {
+  const { isOpen, message, setAskOpen, selection } = useAsk();
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-[99999]"
         onClose={() => {
-          setGMOpen(false);
+          setAskOpen(false, { selected: "none" });
         }}
       >
         <Transition.Child
@@ -46,15 +46,24 @@ function GlobalModal() {
                   <p className="text-sm text-gray-500">{message?.content}</p>
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-4 flex justify-around gap-2">
                   <button
                     type="button"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    className="inline-flex w-1/2 justify-center rounded-md border border-transparent bg-indigo-400 px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={() => {
-                      setGMOpen(false);
+                      setAskOpen(false, { selected: "no" });
                     }}
                   >
-                    {message?.closeText}
+                    {selection?.no}
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex w-1/2 justify-center rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    onClick={() => {
+                      setAskOpen(false, { selected: "yes" });
+                    }}
+                  >
+                    {selection?.yes}
                   </button>
                 </div>
               </Dialog.Panel>
@@ -66,4 +75,4 @@ function GlobalModal() {
   );
 }
 
-export default GlobalModal;
+export default Ask;

@@ -8,8 +8,10 @@ import {
   ICanEnroll,
   IForm,
 } from "../../../api/form/api";
-import FormRegisterView from "../../../components/FormRegisterView";
-import FormResultView from "../../../components/FormResultView";
+import FormDraftView from "../../../components/FormViews/FormDraftView";
+import FormRegisterView from "../../../components/FormViews/FormRegisterView";
+import FormResultView from "../../../components/FormViews/FormResultView";
+import { IField } from "../../club/[clubId]/admin/form/create";
 export default function Page() {
   const {
     query: { enrollId },
@@ -23,7 +25,7 @@ export default function Page() {
     AxiosError,
     { data: ICanEnroll }
   >({
-    queryKey: ["club/canEnroll", data?.data[0]?.clubId],
+    queryKey: ["club/canEnroll", enrollId],
     queryFn: () => canEnrollToClub(data?.data[0]?.clubId.toString()!),
     enabled: !!data,
   });
@@ -32,13 +34,13 @@ export default function Page() {
     AxiosError,
     { data: IForm }
   >({
-    queryKey: ["club/form", data?.data[0]?.clubId, data?.data[0]?.formId],
+    queryKey: ["club/form/enroll", enrollId],
     queryFn: () =>
       getClubFormById(
         data?.data[0]?.clubId.toString()!,
         data?.data[0]?.formId.toString()!
       ),
-    enabled: !!canEnroll,
+    enabled: !!data,
   });
   return (
     <div>
@@ -51,19 +53,20 @@ export default function Page() {
           ) : (
             <div>
               {canEnroll?.data?.hasDraft ? (
-                <FormRegisterView
+                <FormDraftView
+                  enrollId={enrollId as string}
                   formId={data?.data[0]?.clubId!}
                   clubId={data?.data[0]?.formId!}
                   formAnswer={data?.data[0]?.data}
-                  formContent={form?.data?.content}
-                  title="Preview"
+                  formContent={form?.data?.content as IField[]}
+                  title="지원서 수정하기"
                   subTitle=""
                 />
               ) : (
                 <FormResultView
                   formAnswer={data?.data[0]?.data}
                   formContent={form?.data?.content}
-                  title="Preview"
+                  title="나의 지원서"
                   subTitle=""
                 />
               )}

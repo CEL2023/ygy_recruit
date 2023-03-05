@@ -16,7 +16,7 @@ function StatRow({ data }: StatRowProp) {
       <StatCard
         className="rounded-b-xl md:rounded-r-xl md:rounded-b-none md:rounded-br-xl"
         label={"경쟁률"}
-        count={Math.round((data?.enrolls / data?.limit) * 100) / 100}
+        count={Math.round((data?.enrolls / data?.limit) * 10) / 10}
       />
     </div>
   );

@@ -20,7 +20,7 @@ function ClubHeart({ isLiked, clubId, disabled }: props) {
         setLikes((prev) => !prev);
         await mutateAsync();
       }}
-      className="  absolute bottom-4 left-4  rounded-3xl bg-red-300 bg-opacity-30 p-2"
+      className="  absolute bottom-4 right-4  rounded-3xl bg-red-300 bg-opacity-30 p-2"
     >
       {likes ? (
         <HeartOutline className="h-8 w-8 fill-current text-red-500 outline-1" />
