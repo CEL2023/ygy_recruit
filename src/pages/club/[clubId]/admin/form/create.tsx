@@ -60,6 +60,13 @@ export default function Form() {
       })
     );
   };
+  const deleteList = ({ id }: { id: number }) => {
+    setFormContent((prev: IField[]) =>
+      prev.filter((item: IField) => {
+        return item.id !== id;
+      })
+    );
+  };
   const editField = ({ id, label }: { id: number; label: string }) => {
     let newP;
     setFormContent((prev) => {
@@ -97,7 +104,6 @@ export default function Form() {
         newP[id]!.maxSelect = max;
         return newP;
       });
-      setMaxRadio(2);
     }
   };
 
