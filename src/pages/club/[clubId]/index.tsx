@@ -58,9 +58,9 @@ function Page() {
           <div>
             <div className="flex flex-col gap-2 md:flex-row">
               <div className=" basis-3/4 rounded-2xl sm:shadow-xl">
-                <div className=" break-all p-4 text-center text-xl font-semibold sm:text-left sm:text-2xl">
+                <pre className=" w-full whitespace-pre-wrap break-all p-4 text-left text-xl font-semibold sm:text-2xl">
                   {data?.data?.desc}
-                </div>
+                </pre>
               </div>
               <div className=" basis-1/4 flex-col items-center rounded-2xl sm:flex-row sm:p-4 sm:shadow-xl">
                 <div className="text-center text-2xl font-semibold">부원</div>

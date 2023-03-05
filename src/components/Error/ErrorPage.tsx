@@ -35,7 +35,7 @@ function ErrorPage({ message, name }: { message: string; name: string }) {
           </button>
         </div>
 
-        <div className=" -mt-36 text-center text-6xl font-extrabold">
+        <div className=" -mt-36 text-center text-4xl font-extrabold">
           {pageMSG}
           <div className="text-lg font-thin">{message}</div>
         </div>

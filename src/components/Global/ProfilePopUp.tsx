@@ -36,7 +36,7 @@ function ProfilePopUp({ name }: { name: string }) {
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
           >
-            <Popover.Panel className="absolute left-1/2 right-0 z-[999998] mt-2 w-screen max-w-xs -translate-x-1/2 transform rounded-lg bg-white px-4 dark:bg-[#212121] sm:px-0 ">
+            <Popover.Panel className="absolute right-0 -left-1/3 z-[999998] mt-2 w-screen max-w-xs -translate-x-1/2 transform rounded-lg bg-white px-4 dark:bg-[#212121] sm:px-0 md:left-1/2 ">
               <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                 <div className="relative grid gap-6  p-6 ">
                   {solutions.map((item) => (
