@@ -70,7 +70,7 @@ function SignIn() {
               className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
               id="username"
               type="text"
-              placeholder="username"
+              placeholder="아이디"
               {...register("username", {
                 required: "userid is required",
                 minLength: MINLENGTH,
@@ -85,7 +85,7 @@ function SignIn() {
               className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
               id="password"
               type="password"
-              placeholder="password"
+              placeholder="비밀번호"
               {...register("password", {
                 required: true,
                 minLength: {
@@ -106,16 +106,16 @@ function SignIn() {
               type="submit"
               ref={disablebutton}
             >
-              Sign In
+              로그인
             </button>
           </div>
-          <div className="my-2 text-center">OR</div>
+          <div className="my-2 text-center">또는</div>
           <div className="flex flex-col items-center justify-center">
             <Link
               className="text-indigo-700 dark:text-sky-300"
               href={"/signup"}
             >
-              SIGN UP
+              가입하기
             </Link>
             <Link
               className="text-indigo-700 dark:text-sky-300"

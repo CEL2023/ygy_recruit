@@ -21,6 +21,12 @@ export interface IClub {
   bgImg: string;
   clubLikes: ClubLike[];
   members: IMember[];
+  Social: ISocialInfo[];
+}
+export interface ISocialInfo {
+  id: number;
+  type: string;
+  link: string;
 }
 export interface IClubInfo {
   id: number;

@@ -62,7 +62,7 @@ function SignUp() {
               className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
               id="username"
               type="text"
-              placeholder="username"
+              placeholder="아이디"
               {...register("username", {
                 required: "userid is required",
                 minLength: MINLENGTH,
@@ -77,7 +77,7 @@ function SignUp() {
               className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
               id="name"
               type="text"
-              placeholder="name"
+              placeholder="본인 이름"
               {...register("name", {
                 required: "userid is required",
               })}
@@ -94,7 +94,7 @@ function SignUp() {
               className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
               id="studentId"
               type="number"
-              placeholder="studentId"
+              placeholder="학번"
               {...register("studentId", {
                 required: true,
                 pattern: {
@@ -112,7 +112,7 @@ function SignUp() {
               className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
               id="email"
               type="email"
-              placeholder="email"
+              placeholder="이메일"
               {...register("email", {
                 required: true,
                 pattern: {
@@ -129,7 +129,7 @@ function SignUp() {
             <input
               className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
               id="password"
-              type="password"
+              type="비밀번호"
               placeholder="password"
               {...register("password", {
                 required: true,
