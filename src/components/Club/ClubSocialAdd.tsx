@@ -8,15 +8,15 @@ import { useGlobalModal } from "../../zustand/GlobalModalStore";
 const socials = [
   {
     name: "instagram",
-    src: "/ferris.jpg",
   },
   {
     name: "facebook",
-    src: "/ferris.jpg",
   },
   {
     name: "YouTube",
-    src: "/ferris.jpg",
+  },
+  {
+    name: "Link",
   },
 ];
 interface props {
@@ -42,6 +42,7 @@ function ClubSocialAdd({ clubId }: props) {
     }
     await mutateAsync();
     setGMOpen(true, { title: "알림", content: "성공적으로 추가 되었습니다" });
+    setLink("");
   };
   return (
     <div>
@@ -50,7 +51,7 @@ function ClubSocialAdd({ clubId }: props) {
         <Listbox value={selected} onChange={setSelected}>
           <div className="relative mb-10 mt-10">
             <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-              <span className="block truncate">{selected}</span>
+              <span className="block truncate text-gray-800">{selected}</span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronDoubleDownIcon
                   className="h-5 w-5 text-gray-400"
