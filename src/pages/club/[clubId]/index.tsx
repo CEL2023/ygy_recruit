@@ -58,7 +58,7 @@ function Page() {
           <div>
             <div className="flex flex-col gap-2 md:flex-row">
               <div className=" basis-3/4 rounded-2xl sm:shadow-xl">
-                <pre className=" w-full whitespace-pre-wrap break-all p-4 text-left text-xl font-semibold sm:text-2xl">
+                <pre className=" w-full whitespace-pre-wrap break-all p-6 text-left text-xl font-semibold">
                   {data?.data?.desc}
                 </pre>
               </div>
