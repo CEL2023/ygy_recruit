@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { type AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -14,6 +14,7 @@ function EnrollDetail() {
     queryKey: [`club/enroll`, clubId, enrollId],
     queryFn: () => getClubSubmittedEnroll(clubId!, enrollId!),
   });
+
   const {
     data: form,
     isLoading: isFormLoading,

@@ -49,7 +49,7 @@ function FindMyPwd() {
           e.preventDefault();
           checkPWD();
         }}
-        className=" flex flex-col gap-3"
+        className=" mx-10 flex flex-col gap-3"
       >
         <div className=" text-4xl font-semibold">새로운 비밀번호 입력하기</div>
         <label htmlFor="new">아이디</label>

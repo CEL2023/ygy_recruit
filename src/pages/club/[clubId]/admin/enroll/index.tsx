@@ -22,11 +22,29 @@ function Page() {
       ) : (
         <div className=" flex flex-col gap-4">
           <div className=" text-bold m-4 mt-10 text-center text-6xl">지원</div>
-          {data?.data?.map((item, index) => {
-            return (
-              <AdminEnrollCard key={index} enroll={item} clubId={clubId!} />
-            );
-          })}
+          {data?.data
+            ?.sort((a, b) => {
+              if (a?.priority! < b?.priority!) {
+                return 1;
+              }
+              if (a?.priority! > b?.priority!) {
+                return -1;
+              }
+              if (a?.priority! == b?.priority!) {
+                if (a?.id < b?.id) {
+                  return 1;
+                }
+                if (a?.id > b?.id) {
+                  return -1;
+                }
+              }
+              return 0;
+            })
+            .map((item, index) => {
+              return (
+                <AdminEnrollCard key={index} enroll={item} clubId={clubId!} />
+              );
+            })}
         </div>
       )}
     </div>

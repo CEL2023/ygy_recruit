@@ -127,7 +127,7 @@ function SignUp() {
           </div>
           <div className="mb-4">
             <label className="mb-2 block text-sm font-bold " htmlFor="phoneNum">
-              전화번호
+              전화번호 ( - ) 포함
             </label>
             <input
               className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
@@ -138,7 +138,7 @@ function SignUp() {
                 required: true,
                 pattern: {
                   value: /^\d{2,3}-?\d{3,4}-?\d{4}$/,
-                  message: "전화번호가 아닙니다",
+                  message: "전화번호에 - 를 포함해주세요 아닙니다",
                 },
               })}
             />
@@ -150,13 +150,14 @@ function SignUp() {
             <input
               className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
               id="password"
-              type="비밀번호"
-              placeholder="password"
+              type="password"
+              placeholder="비밀번호"
               {...register("password", {
                 required: true,
                 minLength: {
                   value: MINLENGTH,
-                  message: "Password should be more than 8 letters",
+                  message:
+                    "비밀번호는 8자리 이상, 대소문자 와 숫자를 모두 포함해야합니다",
                 },
               })}
             />
