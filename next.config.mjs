@@ -8,7 +8,9 @@ import { withSentryConfig } from "@sentry/nextjs";
 const config = {
   reactStrictMode: false,
   swcMinify: true,
-  domains: ["enrollimages.s3.ap-northeast-2.amazonaws.com"],
+  images: {
+    domains: ["enrollimages.s3.ap-northeast-2.amazonaws.com"],
+  },
   /* If trying out the experimental appDir, comment the i18n config out
    * @see https://github.com/vercel/next.js/issues/41980 */
   i18n: {
