@@ -13,7 +13,7 @@ interface props {
   formId: string;
 }
 function FormView({ formContent, title, subTitle, clubId, formId }: props) {
-  const { push } = useRouter();
+  const { push, reload } = useRouter();
   const { setAskOpen, selection } = useAsk();
   const [editedField, setEditedField] = useState<number | undefined>(0);
   const [onEdit, setOnEdit] = useState(false);
@@ -26,6 +26,7 @@ function FormView({ formContent, title, subTitle, clubId, formId }: props) {
     mutationKey: [`form/create/club/delete`, clubId, formId],
     mutationFn: () => deleteClubForm(clubId!, formId!),
     onSuccess: async () => {
+      reload();
       await push(`/club/${clubId}/admin`);
     },
   });

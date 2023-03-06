@@ -4,6 +4,7 @@ import { useTheme } from "next-themes";
 import ApexChart from "react-apexcharts";
 import { getAllClubStats, IClubStats } from "../../api/club";
 import { toRateStr } from "../../lib/changeToRate";
+import { shortenClubName } from "../../lib/shortenClubName";
 function MainPageChart() {
   const { setTheme, systemTheme, theme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
@@ -44,7 +45,9 @@ function MainPageChart() {
                 axisBorder: { show: false },
                 axisTicks: { show: false },
                 labels: { show: true },
-                categories: data?.data?.map((item) => item.club.name),
+                categories: data?.data?.map((item) =>
+                  shortenClubName(item.club.name)
+                ),
               },
               fill: {
                 type: "gradient",

@@ -28,6 +28,7 @@ export default function Form() {
   const {
     query: { clubId },
     push,
+    reload,
   } = useRouter();
   const { setGMOpen } = useGlobalModal();
   const [formContent, setFormContent] = useState<IField[]>([]);
@@ -38,8 +39,9 @@ export default function Form() {
   const { mutateAsync } = useMutation({
     mutationKey: [`form/create/club`, clubId],
     mutationFn: () => createClubForm(clubId!, { content: formContent }),
-    onSuccess: () => {
-      push(`/club/${clubId}/admin`);
+    onSuccess: async () => {
+      await push(`/club/${clubId}/admin`);
+      reload();
     },
     onError: () => {
       //;
@@ -176,22 +178,56 @@ export default function Form() {
                             ref={context.innerRef}
                           >
                             <div className="flex items-center justify-between space-y-2">
-                              <QTitle
-                                editedField={editedField}
-                                id={field.id}
-                                question={field.question}
-                                onChange={editField}
-                                onClick={() => {
-                                  setOnEdit(true);
-                                  setEditedField(field.id);
-                                }}
-                                onEdit={onEdit}
-                              />
-                              <QCreateTools
-                                id={field.id}
-                                deleteQuestion={deleteQuestion}
-                                onTypeChange={editFieldType}
-                              />
+                              <div
+                                key={field.id}
+                                className="block bg-white text-sm font-medium capitalize dark:bg-black "
+                              >
+                                {onEdit && editedField == field.id ? (
+                                  <input
+                                    type="text"
+                                    value={field.question || ""}
+                                    onChange={(e) =>
+                                      editField({
+                                        id: field.id,
+                                        label: e.target.value || "",
+                                      })
+                                    }
+                                  />
+                                ) : (
+                                  <label
+                                    onClick={() => {
+                                      setOnEdit(true);
+                                      setEditedField(field.id);
+                                    }}
+                                  >
+                                    {field.question}
+                                  </label>
+                                )}
+                              </div>
+                              <div className=" flex gap-2">
+                                <select
+                                  className="dark block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm  focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                  onChange={(e) =>
+                                    editFieldType({
+                                      id: field.id,
+                                      Qtype: e.target.value || "",
+                                    })
+                                  }
+                                >
+                                  <option value="short">단답형</option>
+                                  <option value="paragraph">서술형</option>
+                                  <option value="dropdown">드롭다운</option>
+                                  <option value="multiple">복수선택</option>
+                                </select>
+                                <button
+                                  className="block rounded-2xl  "
+                                  onClick={() =>
+                                    deleteQuestion({ id: field.id })
+                                  }
+                                >
+                                  <XIcon className="h-6 w-6 text-red-500 hover:text-red-900" />
+                                </button>
+                              </div>
                             </div>
                             <div className="my-4">
                               {field.type == "multiple" && (
