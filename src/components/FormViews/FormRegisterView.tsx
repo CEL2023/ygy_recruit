@@ -197,8 +197,8 @@ function FormRegisterView({
                             message: "아직 작성되지 않은 항목이 존재합니다",
                           },
                         })}
-                        className="shadow-xs block h-10 w-full rounded-md px-5  text-black dark:bg-white"
-                        placeholder={field.question}
+                        className="shadow-xs block h-10 w-full rounded-md border px-5 text-black dark:bg-white"
+                        placeholder={"답을 입력해주세요"}
                       />
                     )}
                     {field.type == "paragraph" && (
@@ -210,8 +210,8 @@ function FormRegisterView({
                           },
                         })}
                         rows={4}
-                        className="block h-10 w-full rounded-md px-5 py-2 text-black shadow-sm dark:bg-white"
-                        placeholder={field.question}
+                        className="block h-10 w-full rounded-md border px-5 py-2 text-black shadow-sm dark:bg-white"
+                        placeholder={"답을 입력해주세요"}
                       />
                     )}
                     {field.type == "dropdown" && (
