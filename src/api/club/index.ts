@@ -25,7 +25,7 @@ export interface IClub {
 }
 export interface ISocialInfo {
   id: number;
-  type: string;
+  socialType: string;
   link: string;
 }
 export interface IClubInfo {

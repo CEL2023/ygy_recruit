@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { type AxiosError } from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { getClub, type IClub } from "../../../api/club";
 import ClubHeart from "../../../components/Club/ClubHeart";
@@ -69,6 +70,25 @@ function Page() {
                     ?.sort((a, b) => b.rank - a.rank)
                     .map((item, index: number) => {
                       return <VertProfileCard key={index} user={item} />;
+                    })}
+                </div>
+                <div className="mx-8 mb-4 mt-0 grid grid-cols-3 gap-2">
+                  {data?.data?.Social &&
+                    data?.data?.Social.map((item) => {
+                      return (
+                        <Link
+                          className=" flex items-center justify-center"
+                          href={item.link}
+                          target="_blank"
+                        >
+                          <Image
+                            width={48}
+                            height={48}
+                            src={`/${item.socialType}_logo.svg`}
+                            alt="instagram"
+                          />
+                        </Link>
+                      );
                     })}
                 </div>
                 <div className=" mx-2 flex gap-4 sm:flex-col">

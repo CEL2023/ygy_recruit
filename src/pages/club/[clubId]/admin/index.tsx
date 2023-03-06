@@ -15,6 +15,8 @@ import {
 } from "../../../../api/form/api";
 import { toDateString } from "../../../../lib/dateFormat";
 import ClubSocialAdd from "../../../../components/Club/ClubSocialAdd";
+import { HomeIcon } from "@heroicons/react/solid";
+import Link from "next/link";
 function Page() {
   const {
     query: { clubId },
@@ -51,9 +53,16 @@ function Page() {
   }, [data?.data]);
   return (
     <div className="mx-auto md:w-2/3">
-      <h1 className="m-4 text-center text-4xl font-bold md:m-8 md:text-6xl">
+      <h1 className="m-4 text-center text-4xl font-bold md:m-8 md:mb-4 md:text-6xl">
         {"관리자 페이지"}
       </h1>
+      <Link
+        href={`/club/${clubId}`}
+        className="m-4 flex items-center justify-center gap-2 text-center text-2xl font-bold hover:text-[#668fc5]"
+      >
+        <HomeIcon className=" h-8 w-8" />
+        동아리 홈으로
+      </Link>
       {isLoading ? <div>loading....</div> : <StatRow data={data?.data!} />}
       <div className="my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 md:mx-0 md:py-4 md:px-8">
         <div>
@@ -75,15 +84,15 @@ function Page() {
           </button>
         </div>
       </div>
-      {/* <div
+      <div
         onClick={() => {}}
         className="rounded-x my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-semibold md:mx-0 md:py-4 md:px-8"
       >
         <ClubSocialAdd clubId={clubId! as string} />
-      </div> */}
+      </div>
       <div
         onClick={() => push(`/club/${clubId}/admin/enroll`)}
-        className="rounded-x my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-semibold hover:text-indigo-500 md:mx-0 md:py-4 md:px-8"
+        className="rounded-x my-2 mx-2 cursor-pointer rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-semibold hover:text-indigo-500 md:mx-0 md:py-4 md:px-8"
       >
         제출된 지원서 보러가기 &gt;
       </div>
@@ -101,7 +110,7 @@ function Page() {
                 <div
                   key={`${item.id}_form`}
                   onClick={() => push(`/club/${clubId}/admin/form/${item.id}`)}
-                  className="flex justify-between p-2 hover:text-indigo-500"
+                  className="flex cursor-pointer justify-between p-2 hover:text-indigo-500"
                 >
                   <div>{item.id}</div>
                   <div>{toDateString(item.createdAt)}</div>
@@ -112,7 +121,7 @@ function Page() {
       </div>
       <div
         onClick={() => push(`/club/${clubId}/admin/form/create`)}
-        className="my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-normal hover:text-indigo-500 md:mx-0 md:py-4 md:px-8"
+        className="my-2 mx-2 cursor-pointer rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-normal hover:text-indigo-500 md:mx-0 md:py-4 md:px-8"
       >
         지원서 양식 생성하기 &gt;
       </div>
