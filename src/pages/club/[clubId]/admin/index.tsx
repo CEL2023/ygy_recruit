@@ -14,6 +14,7 @@ import {
   type IFormWithOutContent,
 } from "../../../../api/form/api";
 import { toDateString } from "../../../../lib/dateFormat";
+import ClubSocialAdd from "../../../../components/Club/ClubSocialAdd";
 function Page() {
   const {
     query: { clubId },
@@ -39,10 +40,9 @@ function Page() {
 
   const { isLoading: isLoadingMutation, mutateAsync } = useMutation({
     mutationKey: ["club/admin/info", clubId],
-    mutationFn: () => mutateClubInfo(clubId!, desc, image),
+    mutationFn: () => mutateClubInfo(clubId!, desc),
   });
   const [desc, setDesc] = useState<string>();
-  const [image, setImage] = useState<string>("");
   const submitInfo = async () => {
     await mutateAsync();
   };
@@ -75,6 +75,12 @@ function Page() {
           </button>
         </div>
       </div>
+      {/* <div
+        onClick={() => {}}
+        className="rounded-x my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-semibold md:mx-0 md:py-4 md:px-8"
+      >
+        <ClubSocialAdd clubId={clubId! as string} />
+      </div> */}
       <div
         onClick={() => push(`/club/${clubId}/admin/enroll`)}
         className="rounded-x my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-semibold hover:text-indigo-500 md:mx-0 md:py-4 md:px-8"
