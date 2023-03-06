@@ -24,6 +24,7 @@ function FindMyPWD() {
         </div>
       ) : (
         <form
+          className=" mx-10"
           onSubmit={async (e) => {
             e.preventDefault();
             await sendEmail({ username, email });

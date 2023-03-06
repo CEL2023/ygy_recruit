@@ -8,6 +8,7 @@ export interface IEnroll {
   id: number;
   clubId: number;
   formId: number;
+  priority?: number;
   userId: number;
   data: object;
   isEditCompleted: boolean;
@@ -72,4 +73,14 @@ export const editEnroll = async (
       priority,
     }
   );
+};
+
+export const enrollStatusChange = async (
+  clubId: string | string[],
+  enrollId: string | string[],
+  passLevel: number
+) => {
+  await fetcher.post(`/api/v1/club/${clubId}/enroll/${enrollId}/updateStatus`, {
+    passLevel,
+  });
 };
