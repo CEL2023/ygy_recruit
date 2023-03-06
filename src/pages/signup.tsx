@@ -10,6 +10,7 @@ export interface ISignUp {
   password: string;
   studentId: number;
   name: string;
+  phoneNum: string;
 }
 function SignUp() {
   const {
@@ -24,6 +25,7 @@ function SignUp() {
     password,
     studentId,
     name,
+    phoneNum,
   }) => {
     try {
       const loggingin = await fetcher.post("/api/v1/auth/signup", {
@@ -32,6 +34,7 @@ function SignUp() {
         password,
         studentId: parseInt(studentId.toString()),
         name,
+        phoneNum,
       });
       if (!loggingin) throw new Error("Error");
 
@@ -118,6 +121,24 @@ function SignUp() {
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i,
                   message: "이메일 형식이 아닙니다.",
+                },
+              })}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="mb-2 block text-sm font-bold " htmlFor="phoneNum">
+              전화번호
+            </label>
+            <input
+              className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight  shadow focus:outline-none"
+              id="phoneNum"
+              type="tel"
+              placeholder="전화번호"
+              {...register("phoneNum", {
+                required: true,
+                pattern: {
+                  value: /^\d{2,3}-?\d{3,4}-?\d{4}$/,
+                  message: "전화번호가 아닙니다",
                 },
               })}
             />
