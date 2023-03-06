@@ -150,14 +150,19 @@ function FormDraftView({
                                       ) => {
                                         if (index == 0) {
                                           if (
-                                            (field?.maxSelect ?? 2) +
+                                            (field?.maxSelect ?? 2) >=
                                               formValue?.checkbox[
                                                 field.id
                                               ]!.filter(
                                                 (item: string | boolean) =>
-                                                  item === false
-                                              ).length ==
-                                            formValue.checkbox[field.id]?.length
+                                                  item !== false
+                                              ).length &&
+                                            formValue?.checkbox[
+                                              field.id
+                                            ]!.filter(
+                                              (item: string | boolean) =>
+                                                item !== false
+                                            ).length >= 1
                                           ) {
                                             return true;
                                           }

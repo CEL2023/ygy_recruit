@@ -26,8 +26,8 @@ function FormView({ formContent, title, subTitle, clubId, formId }: props) {
     mutationKey: [`form/create/club/delete`, clubId, formId],
     mutationFn: () => deleteClubForm(clubId!, formId!),
     onSuccess: async () => {
-      reload();
       await push(`/club/${clubId}/admin`);
+      reload();
     },
   });
   const editField = ({ id, label }: { id: number; label: string }) => {
