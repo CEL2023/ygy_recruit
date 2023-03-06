@@ -68,8 +68,8 @@ function FormResultView({ formContent, title, subTitle, formAnswer }: props) {
                     disabled
                     type="text"
                     {...register(`short[${field.id}]`)}
-                    className="shadow-xs block h-10 w-full rounded-md px-5  text-black dark:bg-white"
-                    placeholder={field.question}
+                    className="shadow-xs block h-10 w-full rounded-md border px-5  text-black dark:bg-white"
+                    placeholder={"답을 입력해주세요"}
                   />
                 )}
                 {field.type == "paragraph" && (
@@ -77,8 +77,8 @@ function FormResultView({ formContent, title, subTitle, formAnswer }: props) {
                     {...register(`paragraph[${field.id}]`)}
                     disabled
                     rows={4}
-                    className="block h-10 w-full rounded-md px-5 py-2 text-black shadow-sm dark:bg-white"
-                    placeholder={field.question}
+                    className="block h-10 w-full rounded-md border px-5 py-2 text-black shadow-sm dark:bg-white"
+                    placeholder={"답을 입력해주세요"}
                   />
                 )}
                 {field.type == "dropdown" && (
