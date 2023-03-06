@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { fetcher } from "../api/fetcher";
 import { MINLENGTH } from "../constant/validationRules";
+import { useGlobalModal } from "../zustand/GlobalModalStore";
 export interface ISignUp {
   username: string;
   email: string;
@@ -13,6 +14,7 @@ export interface ISignUp {
   phoneNum: string;
 }
 function SignUp() {
+  const { setGMOpen } = useGlobalModal();
   const {
     register,
     handleSubmit,
@@ -41,7 +43,10 @@ function SignUp() {
       await router.push("/");
       router.reload();
     } catch (e) {
-      console.log(e);
+      setGMOpen(true, {
+        content: "이미 존재하는 계정이거나 알 수 없는 오류입니다",
+        title: "경고",
+      });
     }
   };
 

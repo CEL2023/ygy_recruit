@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { fetcher } from "../api/fetcher";
 import { MINLENGTH } from "../constant/validationRules";
+import { useGlobalModal } from "../zustand/GlobalModalStore";
 export interface ISignIn {
   username: string;
   password: string;
@@ -33,6 +34,7 @@ function SignIn() {
     handleSubmit,
     formState: { errors },
   } = useForm<ISignIn>();
+  const { setGMOpen } = useGlobalModal();
   const router = useRouter();
   const login: SubmitHandler<ISignIn> = async (data) => {
     try {
@@ -45,7 +47,10 @@ function SignIn() {
       await router.push("/");
       router.reload();
     } catch (e) {
-      console.log(e);
+      setGMOpen(true, {
+        content: "아이디/비밀번호가 잘못 되었거나 서버 오류입니다",
+        title: "경고",
+      });
     }
   };
   const disablebutton = useRef<HTMLButtonElement>(null);

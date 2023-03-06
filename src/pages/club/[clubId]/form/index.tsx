@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import { type AxiosError } from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -10,8 +10,11 @@ import {
 } from "../../../../api/form/api";
 import FormRegisterView from "../../../../components/FormViews/FormRegisterView";
 import { IField } from "../admin/form/create";
-
+const queryClient = new QueryClient();
 function Page() {
+  useEffect(() => {
+    queryClient.invalidateQueries(["club/canEnroll"]);
+  }, []);
   const [waiting, setWaiting] = useState(true);
   const {
     query: { clubId },
