@@ -10,6 +10,7 @@ function Footer() {
         </a>
         . All Rights Reserved.
       </span>
+      <div>문제 발생시 010-5395-2545로 연락바랍니다</div>
     </footer>
   );
 }

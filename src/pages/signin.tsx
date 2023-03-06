@@ -122,12 +122,12 @@ function SignIn() {
             >
               가입하기
             </Link>
-            <Link
+            {/* <Link
               className="text-indigo-700 dark:text-sky-300"
               href={"/find-my-pwd"}
             >
               비밀번호를 잊으셨나요? 비밀번호 찾기
-            </Link>
+            </Link> */}
           </div>
         </form>
       </div>
