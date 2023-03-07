@@ -21,30 +21,38 @@ function Enrolls() {
   return (
     <div>
       {!user?.rank ? (
-        <div className=" m-16 flex flex-col items-center justify-start gap-2 border-b">
+        <div className=" m-16 flex flex-col items-center justify-start gap-2 ">
           <div className=" m-8 mt-6 text-center text-4xl font-bold">
             <div>나의 지원</div>
-            <div>제출은 3개까지, 임시지원은 개수 제한 없습니다</div>
+            <div className=" text-3xl">
+              제출은 3개까지, 임시지원은 개수 제한 없습니다
+            </div>
           </div>
           <div className=" flex gap-4">
-            <div className=" text-3xl font-semibold">1지망</div>
-            {data?.data
-              ?.filter((item) => item.priority == 1)
-              .map((item, index) => {
-                return <EnrollCard key={index} enroll={item} />;
-              })}
-            <div className=" text-3xl font-semibold">2지망</div>
-            {data?.data
-              ?.filter((item) => item.priority == 2)
-              .map((item, index) => {
-                return <EnrollCard key={index} enroll={item} />;
-              })}
-            <div className=" text-3xl font-semibold">3지망</div>
-            {data?.data
-              ?.filter((item) => item.priority == 3)
-              .map((item, index) => {
-                return <EnrollCard key={index} enroll={item} />;
-              })}
+            <div>
+              <div className=" text-3xl font-semibold">1지망</div>
+              {data?.data
+                ?.filter((item) => item.priority == 1)
+                .map((item, index) => {
+                  return <EnrollCard key={index} enroll={item} />;
+                })}
+            </div>
+            <div>
+              <div className=" text-3xl font-semibold">2지망</div>
+              {data?.data
+                ?.filter((item) => item.priority == 2)
+                .map((item, index) => {
+                  return <EnrollCard key={index} enroll={item} />;
+                })}
+            </div>
+            <div>
+              <div className=" text-3xl font-semibold">3지망</div>
+              {data?.data
+                ?.filter((item) => item.priority == 3)
+                .map((item, index) => {
+                  return <EnrollCard key={index} enroll={item} />;
+                })}
+            </div>
           </div>
           <div className=" text-3xl font-semibold">임시저장</div>
           {data?.data
