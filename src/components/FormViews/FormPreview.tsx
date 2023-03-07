@@ -1,3 +1,5 @@
+import TextareaAutosize from "react-textarea-autosize";
+
 interface props {
   formContent: any;
   title: string;
@@ -61,7 +63,7 @@ function FormView({ formContent, title, subTitle }: props) {
                   />
                 )}
                 {field.type == "paragraph" && (
-                  <textarea
+                  <TextareaAutosize
                     rows={4}
                     className="block h-10 w-full rounded-md border px-5 py-2 text-black shadow-sm dark:bg-white"
                     placeholder={"답을 입력해주세요"}

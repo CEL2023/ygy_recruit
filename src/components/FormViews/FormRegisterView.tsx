@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import TextareaAutosize from "react-textarea-autosize";
 import { submitEnroll } from "../../api/enroll/api";
 import { fetcher } from "../../api/fetcher";
 import { validate } from "../../lib/validate";
@@ -202,7 +203,7 @@ function FormRegisterView({
                       />
                     )}
                     {field.type == "paragraph" && (
-                      <textarea
+                      <TextareaAutosize
                         {...register(`paragraph[${field.id}]`, {
                           required: {
                             value: true,
