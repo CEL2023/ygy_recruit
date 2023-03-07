@@ -1,6 +1,8 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 const ChartWithOutSSR = dynamic(
   () => import("../components/Chart/MainPageChart"),
   {
@@ -32,16 +34,44 @@ function index() {
   }, [sec]);
   return (
     <div>
-      <div className="relative h-96 w-full">
-        <Image
-          src={"/ferris.jpg"}
-          alt=""
-          className=" object-cover"
-          fill
-          priority
-          sizes=""
-        />
-      </div>
+      <Carousel
+        autoPlay
+        interval={4000}
+        swipeable
+        infiniteLoop
+        showArrows={false}
+        emulateTouch
+        showStatus={false}
+        showIndicators={false}
+      >
+        <div className="relative h-96 w-full">
+          <Image
+            fill
+            priority
+            className=" object-cover"
+            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${1}.jpeg`}
+            alt={`MAIN_${1}`}
+          />
+        </div>
+        <div className="relative h-96 w-full">
+          <Image
+            fill
+            priority
+            className=" object-cover"
+            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${2}.jpeg`}
+            alt={`MAIN_${2}`}
+          />
+        </div>
+        <div className="relative h-96 w-full">
+          <Image
+            fill
+            priority
+            className=" object-cover"
+            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${3}.jpeg`}
+            alt={`MAIN_${3}`}
+          />
+        </div>
+      </Carousel>
       <div className=" m-4 flex items-center justify-center gap-2 text-center text-4xl font-thin">
         <div>서류마감까지</div>
         <div>
