@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import TextareaAutosize from "react-textarea-autosize";
 import { deleteClubForm, editClubForm } from "../../api/form/api";
 import { IField } from "../../pages/club/[clubId]/admin/form/create";
 import { useAsk } from "../../zustand/AskStore";
@@ -113,7 +114,7 @@ function FormView({ formContent, title, subTitle, clubId, formId }: props) {
                   />
                 )}
                 {field.type == "paragraph" && (
-                  <textarea
+                  <TextareaAutosize
                     rows={4}
                     className="block h-10 w-full rounded-md border px-5 py-2 text-black shadow-sm dark:bg-white"
                     placeholder={"답을 입력해주세요"}

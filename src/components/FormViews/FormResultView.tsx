@@ -1,4 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
+import TextareaAutosize from "react-textarea-autosize";
 interface props {
   formContent: any;
   formAnswer: any;
@@ -73,7 +74,7 @@ function FormResultView({ formContent, title, subTitle, formAnswer }: props) {
                   />
                 )}
                 {field.type == "paragraph" && (
-                  <textarea
+                  <TextareaAutosize
                     {...register(`paragraph[${field.id}]`)}
                     disabled
                     rows={4}
