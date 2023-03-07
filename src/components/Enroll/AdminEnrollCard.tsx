@@ -28,7 +28,6 @@ function AdminEnrollCard({
           <div className="flex gap-4">
             <div className="flex gap-2">
               <div>{enroll?.User?.name}</div>
-              <div className=" hidden sm:block">{enroll?.User?.username}</div>
               <div>{enroll?.User?.studentId}</div>
               <div>{enroll?.priority ? enroll.priority : null}지망</div>
               <div
@@ -48,7 +47,7 @@ function AdminEnrollCard({
                     : enroll.passLevel == 7
                     ? "text-[#7ca6de]"
                     : "text-amber-800"
-                }`}
+                } font-semibold`}
               >
                 {toPassLevelStr(enroll?.passLevel).status}
               </div>
