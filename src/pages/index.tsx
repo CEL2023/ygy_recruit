@@ -36,7 +36,7 @@ function index() {
     <div>
       <Carousel
         autoPlay
-        interval={4000}
+        interval={3500}
         swipeable
         infiniteLoop
         showArrows={false}
@@ -72,7 +72,7 @@ function index() {
           />
         </div>
       </Carousel>
-      <div className=" m-4 flex items-center justify-center gap-2 text-center text-4xl font-thin">
+      <div className=" m-4 flex items-center justify-center gap-2 text-center text-2xl font-thin md:text-4xl">
         <div>서류마감까지</div>
         <div>
           {hour}시간 {min}분 {sec}초 남음
