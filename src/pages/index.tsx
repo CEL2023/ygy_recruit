@@ -50,7 +50,7 @@ function index() {
             priority
             className=" object-cover"
             src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${1}.jpeg`}
-            alt={`MAIN_${1}`}
+            alt={`MAIN_${2}`}
           />
         </div>
         <div className="relative h-96 w-full">
@@ -59,7 +59,7 @@ function index() {
             priority
             className=" object-cover"
             src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${2}.jpeg`}
-            alt={`MAIN_${2}`}
+            alt={`MAIN_${1}`}
           />
         </div>
         <div className="relative h-96 w-full">
