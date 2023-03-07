@@ -64,17 +64,17 @@ function MainPageChart() {
             }}
           />
           <div className=" text-center text-xl font-semibold">
-            이공연 전체 모집 인원{" "}
+            이공연 전체 모집 인원 :{" "}
             {data?.data.reduce((acc, curr) => {
               acc += curr.limit;
               return acc;
             }, 0)}
-            명 중{" "}
+            중{" "}
             {data?.data.reduce((acc, curr) => {
               acc += curr.enrolls;
               return acc;
             }, 0)}
-            명 지원
+            개의 지원서 제출됨
           </div>
         </div>
       )}
