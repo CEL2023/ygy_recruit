@@ -69,7 +69,7 @@ function MainPageChart() {
               acc += curr.limit;
               return acc;
             }, 0)}
-            중{" "}
+            <br />
             {data?.data.reduce((acc, curr) => {
               acc += curr.enrolls;
               return acc;
