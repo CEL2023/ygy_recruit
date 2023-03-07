@@ -29,7 +29,7 @@ function EnrollDetail() {
       {!isLoading && isFormFetched && !isFormLoading ? (
         <div>
           <FormResultView
-            title={"asdasd"}
+            title={"제출된 지원서"}
             subTitle={data?.data[0]?.User.name!}
             formContent={form?.data?.content ?? "[]"}
             formAnswer={data?.data[0]?.data}
