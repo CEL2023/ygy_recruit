@@ -22,13 +22,8 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
       <div className="flex-col justify-between gap-2 rounded-xl py-3 px-4 shadow-lg sm:flex sm:px-6">
         <div className="flex gap-4">
           <div className="flex gap-2">
-            <div>{enroll?.User?.name}</div>
-            <div className=" hidden sm:block">{enroll?.User?.username}</div>
-            <div>{enroll?.User?.studentId}</div>
-            <div>
-              {enroll.isEditCompleted ? enroll.priority! : "임시저장됨"}
-            </div>
             <div>{clubname}</div>
+            <div>{enroll.isEditCompleted ? null : "임시저장됨"}</div>
             <div
               className={`${
                 enroll.passLevel == 0
@@ -46,13 +41,13 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
                   : enroll.passLevel == 7
                   ? "text-[#7ca6de]"
                   : "text-amber-800"
-              } text-semibold`}
+              } font-semibold`}
             >
               {toPassLevelStr(enroll?.passLevel)?.status}
             </div>
           </div>
         </div>
-        <div>{toDateString(enroll?.updatedAt)}</div>
+        <div>{toDateString(enroll?.updatedAt)}에 제출됨</div>
       </div>
     </Link>
   );
