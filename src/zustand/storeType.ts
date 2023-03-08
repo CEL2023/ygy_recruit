@@ -25,7 +25,7 @@ export interface IPriorityTab {
   selectedPriority?: number;
   setPTOpen: (
     open: boolean,
-    ele?: { priorityLists?: number[]; priority?: number }
+    ele?: { priorityLists?: number[]; priority?: number | null }
   ) => void;
 }
 export interface ISelection {
