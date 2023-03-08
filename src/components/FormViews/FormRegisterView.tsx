@@ -7,6 +7,7 @@ import { submitEnroll } from "../../api/enroll/api";
 import { fetcher } from "../../api/fetcher";
 import { validate } from "../../lib/validate";
 import { IField } from "../../pages/club/[clubId]/admin/form/create";
+import { useAsk } from "../../zustand/AskStore";
 import { useGlobalModal } from "../../zustand/GlobalModalStore";
 import { usePriorityTab } from "../../zustand/PriorityStore";
 interface props {
@@ -80,7 +81,6 @@ function FormRegisterView({
   };
   const submit: SubmitHandler<any> = async (data) => {
     if (saveMethod == false) {
-      console.log({ data });
       await mutateAsync({ ...data, saveMethod });
       await push("/me/enrolls");
       return;
@@ -97,10 +97,13 @@ function FormRegisterView({
     setFormData(data);
     setPTOpen(true, { priorityLists: possible.data });
   };
+  const submitAction = async () => {
+    await realSubmit();
+    setWFPR(false);
+  };
   useEffect(() => {
-    if (waitingForPriorty && !isOpen) {
-      realSubmit();
-      setWFPR(false);
+    if (waitingForPriorty && !isOpen && selectedPriority != null) {
+      submitAction();
     }
   }, [isOpen]);
   return (

@@ -4,9 +4,7 @@ import { usePriorityTab } from "../../zustand/PriorityStore";
 import { CheckIcon, ChevronDoubleDownIcon } from "@heroicons/react/solid";
 function Priority() {
   const { isOpen, priorities, setPTOpen } = usePriorityTab();
-  const [selected, setSelected] = useState(
-    priorities![priorities?.length ?? 1 - 1]!
-  );
+  const [selected, setSelected] = useState<number | null>(null);
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
@@ -68,7 +66,7 @@ function Priority() {
                           <Listbox.Option
                             key={personIdx}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                              `relative cursor-default select-none py-2 pl-10 pr-4 text-black ${
                                 active
                                   ? "bg-amber-100 text-amber-900"
                                   : "text-gray-900"
@@ -81,7 +79,7 @@ function Priority() {
                                 <span
                                   className={`block truncate ${
                                     selected ? "font-medium" : "font-normal"
-                                  }`}
+                                  } text-[#212121]`}
                                 >
                                   {priority}지망
                                 </span>

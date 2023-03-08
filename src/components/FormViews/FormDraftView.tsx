@@ -98,10 +98,13 @@ function FormDraftView({
     setFormData(data);
     setPTOpen(true, { priorityLists: possible.data });
   };
+  const submitAction = async () => {
+    await realSubmit();
+    setWFPR(false);
+  };
   useEffect(() => {
-    if (waitingForPriorty && !isOpen) {
-      realSubmit();
-      setWFPR(false);
+    if (waitingForPriorty && !isOpen && selectedPriority != null) {
+      submitAction();
     }
   }, [isOpen]);
   return (
