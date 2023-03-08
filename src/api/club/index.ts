@@ -76,3 +76,19 @@ export const mutateClubInfo = async (
     desc,
   });
 };
+export const sendClubMessage = async (
+  clubId: string | string[],
+  content: string,
+  receiver: number
+) => {
+  return await fetcher.post(`/api/v1/club/${clubId.toString()}/send`, {
+    content,
+    receiver,
+  });
+};
+
+export const sendServerMessage = async (content: string) => {
+  return await fetcher.post(`/api/v1/server/send`, {
+    content,
+  });
+};
