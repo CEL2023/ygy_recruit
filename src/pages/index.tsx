@@ -13,14 +13,14 @@ function index() {
   const [hour, setHour] = useState(23);
   const [min, setMin] = useState(59);
   const [sec, setSec] = useState(59);
-  const time = useRef(Math.round((1678287600000 - Date.now()) / 1000));
+  const time = useRef(Math.floor((1678287600000 - Date.now()) / 1000));
   const timerId = useRef<NodeJS.Timer>();
 
   useEffect(() => {
     timerId.current = setInterval(() => {
-      setHour(Math.round(time.current / 3600));
-      setMin(Math.round((time.current % 3600) / 60));
-      setSec(Math.round(time.current % 60));
+      setHour(Math.floor(time.current / 3600));
+      setMin(Math.floor((time.current % 3600) / 60));
+      setSec(Math.floor(time.current % 60));
       time.current -= 1;
     }, 1000);
 
