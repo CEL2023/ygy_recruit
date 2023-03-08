@@ -174,10 +174,11 @@ function SignUp() {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="focus:shadow-outline w-full rounded bg-indigo-400 py-2 px-4 font-bold text-white hover:bg-indigo-700 focus:outline-none"
+              disabled
+              className="focus:shadow-outline w-full rounded bg-red-600 py-2 px-4 font-bold text-white hover:bg-indigo-700 focus:outline-none"
               type="submit"
             >
-              Sign Up
+              가입불가능
             </button>
           </div>
           <div className="my-2 text-center">OR</div>
