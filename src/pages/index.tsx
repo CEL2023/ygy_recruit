@@ -49,6 +49,14 @@ function index() {
             fill
             priority
             className=" object-cover"
+            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${4}.jpeg`}
+            alt={`MAIN_${4}`}
+          />
+        </div>
+        <div className="relative h-96 w-full">
+          <Image
+            fill
+            className=" object-cover"
             src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${2}.jpeg`}
             alt={`MAIN_${2}`}
           />
@@ -56,7 +64,6 @@ function index() {
         <div className="relative h-96 w-full">
           <Image
             fill
-            priority
             className=" object-cover"
             src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${1}.jpeg`}
             alt={`MAIN_${1}`}
@@ -65,7 +72,6 @@ function index() {
         <div className="relative h-96 w-full">
           <Image
             fill
-            priority
             className=" object-cover"
             src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${3}.jpeg`}
             alt={`MAIN_${3}`}
