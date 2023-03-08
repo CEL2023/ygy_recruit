@@ -7,7 +7,7 @@ export const usePriorityTab = create<IPriorityTab>((set) => ({
   priorities: [1, 2, 3],
   setPTOpen: (
     open: boolean,
-    ele?: { priorityLists?: number[]; priority?: number }
+    ele?: { priorityLists?: number[]; priority?: number | null }
   ) =>
     set({
       isOpen: open,
