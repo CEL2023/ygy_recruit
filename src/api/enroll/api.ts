@@ -80,7 +80,10 @@ export const enrollStatusChange = async (
   enrollId: string | string[],
   passLevel: number
 ) => {
-  await fetcher.post(`/api/v1/club/${clubId}/enroll/${enrollId}/preupdate`, {
-    passLevel,
-  });
+  await fetcher.post(
+    `/api/v1/club/${clubId}/admin/enroll/${enrollId}/preupdate`,
+    {
+      passLevel,
+    }
+  );
 };
