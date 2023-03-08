@@ -4,6 +4,7 @@ import { useState } from "react";
 import { enrollStatusChange, type IEnroll } from "../../api/enroll/api";
 import { toDateString } from "../../lib/dateFormat";
 import { toPassLevelStr } from "../../lib/passLevelToStr";
+import BasicLoader from "../Global/Loaders/BasicLoader";
 const queryClient = new QueryClient();
 function AdminEnrollCard({
   enroll,
@@ -27,9 +28,13 @@ function AdminEnrollCard({
         >
           <div className="flex gap-4">
             <div className="flex gap-2">
-              <div>{enroll?.User?.name}</div>
-              <div>{enroll?.User?.studentId}</div>
-              <div>{enroll?.priority ? enroll.priority : null}지망</div>
+              <div className=" text-sm font-semibold">{enroll?.User?.name}</div>
+              <div className=" text-sm font-semibold">
+                {enroll?.User?.studentId}
+              </div>
+              <div className=" text-sm font-semibold">
+                {enroll?.priority ? enroll.priority : null}지망
+              </div>
               <div
                 className={`${
                   enroll.passLevel == 0
@@ -73,15 +78,11 @@ function AdminEnrollCard({
           <button
             onClick={async () => {
               await mutateAsync();
-              await queryClient.invalidateQueries([
-                `club/enroll/status`,
-                clubId,
-                enroll.id,
-              ]);
+              await queryClient.invalidateQueries([`club/enroll/status`]);
             }}
             className="rounded-xl bg-[#7ca6de]  px-2 py-1 text-lg font-medium text-white transition-all duration-200 hover:bg-[#668fc5]"
           >
-            {isLoading ? "loading..." : "설정하기"}
+            {isLoading ? <BasicLoader /> : "설정하기"}
           </button>
         </div>
       </div>
