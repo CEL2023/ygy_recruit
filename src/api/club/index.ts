@@ -88,7 +88,7 @@ export const sendClubMessage = async (
 };
 
 export const sendServerMessage = async (content: string) => {
-  return await fetcher.post(`/api/v1/server/send`, {
+  return await fetcher.post(`/api/v1/message/server/send`, {
     content,
   });
 };
