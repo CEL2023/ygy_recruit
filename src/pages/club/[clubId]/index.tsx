@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { getClub, type IClub } from "../../../api/club";
 import ClubHeart from "../../../components/Club/ClubHeart";
+import BasicLoader from "../../../components/Global/Loaders/BasicLoader";
 import VertProfileCard from "../../../components/VertProfileCard";
 import { useGlobalModal } from "../../../zustand/GlobalModalStore";
 import { useUserStore } from "../../../zustand/User";
@@ -33,7 +34,7 @@ function Page() {
   return (
     <div>
       {isLoading ? (
-        <div>loading...</div>
+        <BasicLoader />
       ) : (
         <div className=" mx-auto w-full sm:w-5/6">
           <div className=" relative h-64">

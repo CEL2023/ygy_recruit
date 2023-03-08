@@ -3,6 +3,7 @@ import { AxiosError } from "axios";
 import React from "react";
 import { getAllClub, IClub } from "../../api/club";
 import ClubCard from "../../components/Club/ClubCard";
+import BasicLoader from "../../components/Global/Loaders/BasicLoader";
 
 function Page() {
   const { data, isLoading } = useQuery<any, AxiosError, { data: IClub[] }>({
@@ -12,7 +13,7 @@ function Page() {
   return (
     <div>
       {isLoading ? (
-        <div>loading...</div>
+        <BasicLoader />
       ) : (
         <div className="mx-auto items-center justify-center">
           <div className=" mx-2 mt-8 grid gap-1 sm:w-full sm:grid-cols-1 md:mx-auto md:w-fit md:grid-cols-2 lg:grid-cols-3">

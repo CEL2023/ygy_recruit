@@ -9,6 +9,7 @@ import {
   type IForm,
 } from "../../../../api/form/api";
 import FormRegisterView from "../../../../components/FormViews/FormRegisterView";
+import BasicLoader from "../../../../components/Global/Loaders/BasicLoader";
 import { IField } from "../admin/form/create";
 const queryClient = new QueryClient();
 function Page() {
@@ -55,7 +56,7 @@ function Page() {
       waiting ||
       isFetching ||
       isRefetching ? (
-        <div>Loading...</div>
+        <BasicLoader />
       ) : (
         <FormRegisterView
           formId={data?.data?.id!}

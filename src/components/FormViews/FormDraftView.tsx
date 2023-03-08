@@ -9,6 +9,7 @@ import { validate } from "../../lib/validate";
 import { IField } from "../../pages/club/[clubId]/admin/form/create";
 import { useGlobalModal } from "../../zustand/GlobalModalStore";
 import { usePriorityTab } from "../../zustand/PriorityStore";
+import BasicLoader from "../Global/Loaders/BasicLoader";
 interface props {
   formId: number;
   clubId: number;
@@ -110,7 +111,7 @@ function FormDraftView({
   return (
     <>
       {loading ? (
-        <div>loading...</div>
+        <BasicLoader />
       ) : (
         <form onSubmit={handleSubmit(submit)}>
           <div className="mt-8 mb-4 flex w-full flex-col space-y-2">

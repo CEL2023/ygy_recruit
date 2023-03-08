@@ -3,6 +3,7 @@ import { type AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { getClubFormById, type IForm } from "../../../../../api/form/api";
 import FormEditablePreview from "../../../../../components/FormViews/FormEditablePreview";
+import BasicLoader from "../../../../../components/Global/Loaders/BasicLoader";
 export default function Page() {
   const {
     query: { clubId, formId },
@@ -14,7 +15,7 @@ export default function Page() {
   return (
     <div>
       {isLoading ? (
-        <div>loading...</div>
+        <BasicLoader />
       ) : (
         <FormEditablePreview
           clubId={clubId! as string}

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { getClubSubmittedEnroll } from "../../../../../api/enroll/api";
 import { getClubFormById, IForm } from "../../../../../api/form/api";
 import FormResultView from "../../../../../components/FormViews/FormResultView";
+import BasicLoader from "../../../../../components/Global/Loaders/BasicLoader";
 
 function EnrollDetail() {
   const {
@@ -36,7 +37,7 @@ function EnrollDetail() {
           />
         </div>
       ) : (
-        <div>asd</div>
+        <BasicLoader />
       )}
     </div>
   );
