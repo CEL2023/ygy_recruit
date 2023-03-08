@@ -28,7 +28,7 @@ function Enrolls() {
               제출은 3개까지, 임시지원은 개수 제한 없습니다
             </div>
           </div>
-          <div className=" flex gap-4">
+          <div className=" flex flex-col gap-4 md:flex-row">
             <div>
               <div className=" text-3xl font-semibold">1지망</div>
               {data?.data
