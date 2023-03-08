@@ -7,6 +7,7 @@ import {
   getClubStats,
   type IClubStats,
   mutateClubInfo,
+  sendClubMessage,
 } from "../../../../api/club";
 import StatRow from "../../../../components/Stat/StatRow";
 import {
@@ -18,7 +19,13 @@ import ClubSocialAdd from "../../../../components/Club/ClubSocialAdd";
 import { HomeIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import BasicLoader from "../../../../components/Global/Loaders/BasicLoader";
+import { toPassLevelStr } from "../../../../lib/passLevelToStr";
+import ReactTextareaAutosize from "react-textarea-autosize";
+import { getByte } from "../../../../lib/countByte";
 function Page() {
+  const [selected, setSelected] = useState<number>(0);
+  const [bytes, setBytes] = useState<number>(0);
+  const [inputD, setinputD] = useState<string>("");
   const {
     query: { clubId },
     push,
@@ -45,6 +52,11 @@ function Page() {
     mutationKey: ["club/admin/info", clubId],
     mutationFn: () => mutateClubInfo(clubId!, desc),
   });
+  const { isLoading: isLoadingMessage, mutateAsync: messageMutate } =
+    useMutation({
+      mutationFn: () => sendClubMessage(clubId!, inputD, selected),
+      mutationKey: ["admin/message", clubId, `${bytes}${clubId}${selected}`],
+    });
   const [desc, setDesc] = useState<string>();
   const submitInfo = async () => {
     await mutateAsync();
@@ -122,9 +134,54 @@ function Page() {
       </div>
       <div
         onClick={() => push(`/club/${clubId}/admin/form/create`)}
-        className="my-2 mx-2 cursor-pointer rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-normal hover:text-indigo-500 md:mx-0 md:py-4 md:px-8"
+        className="my-2 mx-2 cursor-pointer rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-normal  md:mx-0 md:py-4 md:px-8"
       >
         지원서 양식 생성하기 &gt;
+      </div>
+      <div className="my-2 mx-2 cursor-pointer items-center rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-normal  md:mx-0 md:py-4 md:px-8">
+        <div>문자발송</div>
+        <div className=" flex items-center justify-between">
+          <ReactTextareaAutosize
+            className="block h-10  rounded-md border px-5 py-2 text-black shadow-sm dark:bg-white"
+            value={inputD}
+            onChange={(e) => {
+              setinputD(e.target.value);
+              setBytes(inputD.length == 0 ? 0 : getByte(inputD));
+            }}
+            onBlur={() => setBytes(inputD.length == 0 ? 0 : getByte(inputD))}
+          />
+          <div className=" flex gap-2">
+            <div>발송대상:</div>
+            <select
+              value={selected}
+              onChange={(e) => {
+                setSelected(Number(e.target.value));
+              }}
+            >
+              {Array.from(Array(8), (_, index) => {
+                return (
+                  <option key={index} value={index}>
+                    {toPassLevelStr(index).status}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+        <div>
+          <div className={bytes > 120 ? "text-red-500" : ""}>
+            {bytes}/120바이트
+          </div>
+          <div className="flex justify-end">
+            <button
+              onClick={async () => await messageMutate()}
+              disabled={isLoadingMessage}
+              className="w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
+            >
+              {!isLoadingMessage ? "발송하기" : "loading..."}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
