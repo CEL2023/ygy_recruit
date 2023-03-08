@@ -108,9 +108,10 @@ function Page() {
                         if (isAMI) return;
                         push(`/club/${clubId}/form`);
                       }}
-                      className="mx-auto w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
+                      disabled
+                      className="mx-auto w-48 rounded-xl bg-red-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
                     >
-                      지원하기
+                      지원이 불가능 합니다
                     </button>
                   )}
                 </div>
