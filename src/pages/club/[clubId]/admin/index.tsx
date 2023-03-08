@@ -17,6 +17,7 @@ import { toDateString } from "../../../../lib/dateFormat";
 import ClubSocialAdd from "../../../../components/Club/ClubSocialAdd";
 import { HomeIcon } from "@heroicons/react/solid";
 import Link from "next/link";
+import BasicLoader from "../../../../components/Global/Loaders/BasicLoader";
 function Page() {
   const {
     query: { clubId },
@@ -63,7 +64,7 @@ function Page() {
         <HomeIcon className=" h-8 w-8" />
         동아리 홈으로
       </Link>
-      {isLoading ? <div>loading....</div> : <StatRow data={data?.data!} />}
+      {isLoading ? <BasicLoader /> : <StatRow data={data?.data!} />}
       <div className="my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 md:mx-0 md:py-4 md:px-8">
         <div>
           <div className="m-2 ml-0 text-xl font-semibold">동아리 설명</div>

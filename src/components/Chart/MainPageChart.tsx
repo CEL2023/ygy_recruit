@@ -6,6 +6,7 @@ import ApexChart from "react-apexcharts";
 import { getAllClubStats, IClubStats } from "../../api/club";
 import { toRateStr } from "../../lib/changeToRate";
 import { shortenClubName } from "../../lib/shortenClubName";
+import BasicLoader from "../Global/Loaders/BasicLoader";
 const queryClient = new QueryClient();
 function MainPageChart() {
   const { setTheme, systemTheme, theme } = useTheme();
@@ -30,7 +31,7 @@ function MainPageChart() {
         />
       </div>
       {isLoading || isRefetching ? (
-        <div>loading...</div>
+        <BasicLoader />
       ) : (
         <ApexChart
           type="bar"

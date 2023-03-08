@@ -26,6 +26,8 @@
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.1",
+    "react-loader-spinner": "^5.3.4",
+    "react-loading-skeleton": "^3.2.0",
     "react-lottie": "^1.2.3",
     "react-responsive-carousel": "^3.2.23",
     "react-textarea-autosize": "^8.4.0",

@@ -11,6 +11,7 @@ import {
 import FormDraftView from "../../../components/FormViews/FormDraftView";
 import FormRegisterView from "../../../components/FormViews/FormRegisterView";
 import FormResultView from "../../../components/FormViews/FormResultView";
+import BasicLoader from "../../../components/Global/Loaders/BasicLoader";
 import { IField } from "../../club/[clubId]/admin/form/create";
 export default function Page() {
   const {
@@ -49,7 +50,7 @@ export default function Page() {
       ) : (
         <div>
           {isFormLoading ? (
-            <div>Loading...</div>
+            <BasicLoader />
           ) : (
             <div>
               {canEnroll?.data?.hasDraft ? (
