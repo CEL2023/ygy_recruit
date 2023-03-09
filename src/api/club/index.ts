@@ -81,7 +81,7 @@ export const sendClubMessage = async (
   content: string,
   receiver: number
 ) => {
-  return await fetcher.post(`/api/v1/club/${clubId.toString()}/send`, {
+  return await fetcher.post(`/api/v1/message/club/${clubId.toString()}/send`, {
     content,
     receiver,
   });
