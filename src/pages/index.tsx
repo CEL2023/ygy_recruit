@@ -49,6 +49,15 @@ function index() {
             fill
             priority
             className=" object-cover"
+            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${5}.jpeg`}
+            alt={`MAIN_${5}`}
+          />
+        </div>
+        <div className="relative h-96 w-full">
+          <Image
+            fill
+            priority
+            className=" object-cover"
             src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${4}.jpeg`}
             alt={`MAIN_${4}`}
           />
