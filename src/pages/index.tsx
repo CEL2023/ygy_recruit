@@ -49,8 +49,8 @@ function index() {
             fill
             priority
             className=" object-cover"
-            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${5}.jpeg`}
-            alt={`MAIN_${5}`}
+            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${7}.jpeg`}
+            alt={`MAIN_${7}`}
           />
         </div>
         <div className="relative h-96 w-full">
@@ -65,24 +65,8 @@ function index() {
           <Image
             fill
             className=" object-cover"
-            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${4}.jpeg`}
-            alt={`MAIN_${4}`}
-          />
-        </div>
-        <div className="relative h-96 w-full">
-          <Image
-            fill
-            className=" object-cover"
             src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${1}.jpeg`}
             alt={`MAIN_${1}`}
-          />
-        </div>
-        <div className="relative h-96 w-full">
-          <Image
-            fill
-            className=" object-cover"
-            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${3}.jpeg`}
-            alt={`MAIN_${3}`}
           />
         </div>
       </Carousel>
