@@ -82,7 +82,13 @@ function AdminEnrollCard({
             }}
             className="rounded-xl bg-[#7ca6de]  px-2 py-1 text-lg font-medium text-white transition-all duration-200 hover:bg-[#668fc5]"
           >
-            {isLoading ? <BasicLoader /> : "설정하기"}
+            {isLoading ? (
+              <div className="flex h-8 w-8 items-center justify-center">
+                <BasicLoader />
+              </div>
+            ) : (
+              "설정하기"
+            )}
           </button>
         </div>
       </div>
