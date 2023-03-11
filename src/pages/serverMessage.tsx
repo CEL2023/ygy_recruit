@@ -43,17 +43,73 @@ function serverMessage() {
           </div>
         </div>
       </div>
-      <div className="flex justify-end">
+      <div className="flex flex-col gap-2">
         <button
           onDoubleClick={async () => {
             await fetcher.post("/api/v1/club/10/admin/applyAll");
+          }}
+          className="w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
+        >
+          applyAll
+        </button>
+        <button
+          onDoubleClick={async () => {
             await fetcher.post("/api/v1/club/11/admin/applyAll");
+          }}
+          className="w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
+        >
+          applyAll
+        </button>
+        <button
+          onDoubleClick={async () => {
             await fetcher.post("/api/v1/club/12/admin/applyAll");
+          }}
+          className="w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
+        >
+          applyAll
+        </button>
+        <button
+          onDoubleClick={async () => {
             await fetcher.post("/api/v1/club/13/admin/applyAll");
+          }}
+          className="w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
+        >
+          applyAll
+        </button>
+        <button
+          onDoubleClick={async () => {
             await fetcher.post("/api/v1/club/14/admin/applyAll");
+          }}
+          className="w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
+        >
+          applyAll
+        </button>
+        <button
+          onDoubleClick={async () => {
             await fetcher.post("/api/v1/club/15/admin/applyAll");
+          }}
+          className="w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
+        >
+          applyAll
+        </button>
+        <button
+          onDoubleClick={async () => {
             await fetcher.post("/api/v1/club/16/admin/applyAll");
+          }}
+          className="w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
+        >
+          applyAll
+        </button>
+        <button
+          onDoubleClick={async () => {
             await fetcher.post("/api/v1/club/17/admin/applyAll");
+          }}
+          className="w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
+        >
+          applyAll
+        </button>
+        <button
+          onDoubleClick={async () => {
             await fetcher.post("/api/v1/club/18/admin/applyAll");
           }}
           className="w-48 rounded-xl bg-indigo-600 px-4 py-2 text-xl font-medium text-white transition-all duration-200 hover:bg-indigo-400"
