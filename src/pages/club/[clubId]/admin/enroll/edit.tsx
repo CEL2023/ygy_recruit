@@ -26,7 +26,7 @@ function Page() {
             <div className=" text-3xl font-semibold">1지망 신청</div>
             {data?.data
               ?.filter((item) => item.priority == 1)
-              .map((item, index) => {
+              ?.map((item, index) => {
                 return (
                   <AdminEnrollCard key={index} enroll={item} clubId={clubId!} />
                 );
@@ -36,7 +36,7 @@ function Page() {
             <div className=" text-3xl font-semibold">2지망 신청</div>
             {data?.data
               ?.filter((item) => item.priority == 2)
-              .map((item, index) => {
+              ?.map((item, index) => {
                 return (
                   <AdminEnrollCard key={index} enroll={item} clubId={clubId!} />
                 );
@@ -46,7 +46,7 @@ function Page() {
             <div className=" text-3xl font-semibold">3지망 신청</div>
             {data?.data
               ?.filter((item) => item.priority == 3)
-              .map((item, index) => {
+              ?.map((item, index) => {
                 return (
                   <AdminEnrollCard key={index} enroll={item} clubId={clubId!} />
                 );

@@ -104,10 +104,16 @@ function Page() {
         <ClubSocialAdd clubId={clubId! as string} />
       </div>
       <div
-        onClick={() => push(`/club/${clubId}/admin/enroll`)}
+        onClick={() => push(`/club/${clubId}/admin/enroll/edit`)}
         className="rounded-x my-2 mx-2 cursor-pointer rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-semibold hover:text-indigo-500 md:mx-0 md:py-4 md:px-8"
       >
-        제출된 지원서 보러가기 &gt;
+        제출된 지원서 관리하기 &gt;
+      </div>
+      <div
+        onClick={() => push(`/club/${clubId}/admin/enroll/show`)}
+        className="rounded-x my-2 mx-2 cursor-pointer rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-semibold hover:text-indigo-500 md:mx-0 md:py-4 md:px-8"
+      >
+        지원서 모아보기 (면접용) &gt;
       </div>
       <div className="my-2 mx-2 rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-semibold  md:mx-0 md:py-4 md:px-8">
         <div>지원서 양식 보기</div>
