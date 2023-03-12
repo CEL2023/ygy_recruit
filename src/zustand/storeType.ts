@@ -1,5 +1,6 @@
+import { StateCreator } from "zustand";
 import { type IFetchMe } from "../api/auth/fetchMe";
-
+import { PersistOptions } from "zustand/middleware";
 export interface IUserStore {
   user: null | IFetchMe;
   setUser: (input: IFetchMe | null) => void;
@@ -43,3 +44,13 @@ export interface IAsk {
     MessageField?: IMessageField
   ) => void;
 }
+
+export type hideState = {
+  hide: boolean;
+  setHide: (data: boolean) => void;
+};
+
+export type hidePersist = (
+  config: StateCreator<hideState>,
+  options: PersistOptions<hideState>
+) => StateCreator<hideState>;

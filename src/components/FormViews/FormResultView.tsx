@@ -1,3 +1,5 @@
+import { ChevronLeftIcon } from "@heroicons/react/solid";
+import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import TextareaAutosize from "react-textarea-autosize";
 interface props {
@@ -7,6 +9,7 @@ interface props {
   subTitle: string;
 }
 function FormResultView({ formContent, title, subTitle, formAnswer }: props) {
+  const { back } = useRouter();
   const { register } = useForm({
     defaultValues: formAnswer,
   });
@@ -16,6 +19,12 @@ function FormResultView({ formContent, title, subTitle, formAnswer }: props) {
   return (
     <div>
       <div className="mt-8 mb-4 flex w-full flex-col space-y-2">
+        <div
+          onClick={() => back()}
+          className=" flex items-center justify-start"
+        >
+          <ChevronLeftIcon className=" h-12 w-12 hover:text-[#7ca6de]" />
+        </div>
         <h1 className="text-center text-6xl font-bold">{title}</h1>
         <h2 className="text-center text-4xl font-semibold">{subTitle}</h2>
       </div>

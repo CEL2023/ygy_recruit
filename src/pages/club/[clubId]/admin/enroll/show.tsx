@@ -10,10 +10,16 @@ import {
 } from "../../../../../api/enroll/api";
 import AdminEnrollCard from "../../../../../components/Enroll/AdminEnrollCard";
 import AdminEnrollCardView from "../../../../../components/Enroll/AdminEnrollCardView";
+import { useHide } from "../../../../../hooks/useHide";
 import { sortKorean } from "../../../../../lib/sortKorean";
+import { useHideStore } from "../../../../../zustand/HideStore";
 
 function ViewPage() {
-  const [hide, setHide] = useState<boolean>(false);
+  const { hide: hided, setHide } = useHideStore();
+  const [hide, setHideT] = useState<boolean>(false);
+  useEffect(() => {
+    setHideT(hided);
+  }, [hided]);
   const [filtered, setFiltered] = useState<IEnroll[]>();
   const [query, setQuery] = useState<string>("");
   const {
@@ -47,7 +53,7 @@ function ViewPage() {
       ) : (
         <div className=" my-8">
           <div className=" text-center text-5xl font-bold">지원자보기</div>
-          <div className="relative mx-auto my-4 w-1/3">
+          <div className="md:1/3 relative mx-auto my-4 w-1/2">
             <input
               className="w-full rounded-xl border-2 border-gray-200 bg-gray-100 py-3 pl-10 pr-3 leading-5 text-black focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="text"

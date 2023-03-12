@@ -146,7 +146,7 @@ function Page() {
       </div>
       <div className="my-2 mx-2 cursor-pointer items-center rounded-xl bg-gray-500 bg-opacity-10 py-3 px-4 text-xl font-normal  md:mx-0 md:py-4 md:px-8">
         <div>문자발송</div>
-        <div className=" flex items-center justify-between">
+        <div className=" flex  items-center justify-between">
           <ReactTextareaAutosize
             className="block h-10  rounded-md border px-5 py-2 text-black shadow-sm dark:bg-white"
             value={inputD}
