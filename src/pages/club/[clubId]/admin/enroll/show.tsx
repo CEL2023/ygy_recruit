@@ -10,6 +10,7 @@ import {
 } from "../../../../../api/enroll/api";
 import AdminEnrollCard from "../../../../../components/Enroll/AdminEnrollCard";
 import AdminEnrollCardView from "../../../../../components/Enroll/AdminEnrollCardView";
+import BasicLoader from "../../../../../components/Global/Loaders/BasicLoader";
 import { useHide } from "../../../../../hooks/useHide";
 import { sortKorean } from "../../../../../lib/sortKorean";
 import { useHideStore } from "../../../../../zustand/HideStore";
@@ -49,7 +50,7 @@ function ViewPage() {
   return (
     <div>
       {isLoading ? (
-        <div>loading...</div>
+        <BasicLoader />
       ) : (
         <div className=" my-8">
           <div className=" text-center text-5xl font-bold">지원자보기</div>
@@ -98,7 +99,7 @@ function ViewPage() {
               return (
                 <div className=" border-b border-[#7ca6de] py-4">
                   <div className=" mx-2 text-3xl font-semibold">
-                    {(idx + 1).toString()} 지망 (
+                    {(idx + 1).toString()}지망 (
                     {filterName
                       ?.filter((o) => o.priority == idx + 1)
                       .length.toString()}
