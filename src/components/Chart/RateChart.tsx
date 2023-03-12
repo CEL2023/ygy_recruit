@@ -3,6 +3,7 @@ import { AxiosError } from "axios";
 import React from "react";
 import { getAllClubStats, IClubStats } from "../../api/club";
 import { toRateStr } from "../../lib/changeToRate";
+import BasicLoader from "../Global/Loaders/BasicLoader";
 
 function RateChart() {
   const { data, isLoading } = useQuery<any, AxiosError, { data: IClubStats[] }>(
@@ -14,7 +15,7 @@ function RateChart() {
   return (
     <div>
       {isLoading ? (
-        <div>Loading...</div>
+        <BasicLoader />
       ) : (
         <div className=" mx-auto w-3/4">
           <div className="my-8 text-center text-6xl font-bold">경쟁률</div>

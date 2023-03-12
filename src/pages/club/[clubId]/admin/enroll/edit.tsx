@@ -6,6 +6,7 @@ import {
   type IEnroll,
 } from "../../../../../api/enroll/api";
 import AdminEnrollCard from "../../../../../components/Enroll/AdminEnrollCard";
+import BasicLoader from "../../../../../components/Global/Loaders/BasicLoader";
 
 function Page() {
   const {
@@ -18,7 +19,7 @@ function Page() {
   return (
     <div>
       {isLoading ? (
-        <div>loading...</div>
+        <BasicLoader />
       ) : (
         <div className=" flex flex-col gap-4">
           <div className=" text-bold m-4 mt-10 text-center text-6xl">지원</div>

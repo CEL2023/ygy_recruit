@@ -46,7 +46,7 @@ export default function Page() {
   return (
     <div>
       {isLoading ? (
-        <div>loading...</div>
+        <BasicLoader />
       ) : (
         <div>
           {isFormLoading ? (
