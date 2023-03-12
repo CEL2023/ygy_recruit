@@ -36,7 +36,7 @@ function index() {
     <div>
       <Carousel
         autoPlay
-        interval={3500}
+        interval={4000}
         swipeable
         infiniteLoop
         showArrows={false}
@@ -47,26 +47,34 @@ function index() {
         <div className="relative h-96 w-full">
           <Image
             fill
-            priority
-            className=" object-cover"
-            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${7}.jpeg`}
-            alt={`MAIN_${7}`}
-          />
-        </div>
-        <div className="relative h-96 w-full">
-          <Image
-            fill
-            className=" object-cover"
-            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${6}.jpeg`}
-            alt={`MAIN_${6}`}
-          />
-        </div>
-        <div className="relative h-96 w-full">
-          <Image
-            fill
             className=" object-cover"
             src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${1}.jpeg`}
             alt={`MAIN_${1}`}
+          />
+        </div>
+        <div className="relative h-96 w-full">
+          <Image
+            fill
+            priority
+            className=" object-cover"
+            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${8}.jpeg`}
+            alt={`MAIN_${8}`}
+          />
+        </div>
+        <div className="relative h-96 w-full">
+          <Image
+            fill
+            className=" object-cover"
+            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${9}.jpeg`}
+            alt={`MAIN_${9}`}
+          />
+        </div>
+        <div className="relative h-96 w-full">
+          <Image
+            fill
+            className=" object-cover"
+            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${10}.jpeg`}
+            alt={`MAIN_${10}`}
           />
         </div>
       </Carousel>
