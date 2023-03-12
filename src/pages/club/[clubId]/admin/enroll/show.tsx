@@ -98,7 +98,7 @@ function ViewPage() {
               return (
                 <div className=" border-b border-[#7ca6de] py-4">
                   <div className=" mx-2 text-3xl font-semibold">
-                    {(idx + 1).toString()}지망 (
+                    {(idx + 1).toString()} 지망 (
                     {filterName
                       ?.filter((o) => o.priority == idx + 1)
                       .length.toString()}
