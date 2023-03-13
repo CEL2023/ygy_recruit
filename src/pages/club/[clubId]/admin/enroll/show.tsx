@@ -53,7 +53,7 @@ function ViewPage() {
         <BasicLoader />
       ) : (
         <div className=" my-8">
-          <div className=" text-center text-5xl font-bold">지원자보기</div>
+          <div className=" text-center text-5xl font-bold">지원자 보기</div>
           <div className="md:1/3 relative mx-auto my-4 w-2/3">
             <input
               className="w-full rounded-xl border-2 border-gray-200 bg-gray-100 py-3 pl-10 pr-3 leading-5 text-black focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"

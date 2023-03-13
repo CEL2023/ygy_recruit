@@ -87,3 +87,6 @@ export const enrollStatusChange = async (
     }
   );
 };
+export const finalRegister = async (enrollId: string | string[]) => {
+  await fetcher.post(`/api/v1/me/enroll/${enrollId}/finalRegister`);
+};

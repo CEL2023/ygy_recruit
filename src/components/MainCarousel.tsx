@@ -5,7 +5,7 @@ import { Carousel } from "react-responsive-carousel";
 
 function MainCarousel() {
   return (
-    <Carousel autoPlay interval={4000}>
+    <Carousel interval={4000}>
       <div className="relative h-96 w-full">
         <Image
           fill

@@ -27,9 +27,6 @@ function TokenCore({ isLoggedIn }: { isLoggedIn: boolean }) {
     if (!user) await setUserState();
   };
   useEffect(() => {
-    if (isFocused && user) {
-      refresh();
-    }
     if (user) return;
     if (
       (window?.performance?.getEntries()[0] as PerformanceNavigationTiming)
@@ -42,7 +39,7 @@ function TokenCore({ isLoggedIn }: { isLoggedIn: boolean }) {
     if (isLoggedIn) {
       refresh();
     } else setUser(null);
-  }, [isLoggedIn, isFocused]);
+  }, [isLoggedIn]);
   return null;
 }
 
