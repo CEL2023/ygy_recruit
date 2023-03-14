@@ -56,8 +56,8 @@ function index() {
           <Image
             fill
             className=" object-cover"
-            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${2}.jpeg`}
-            alt={`MAIN_${2}`}
+            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${1}.jpeg`}
+            alt={`MAIN_${1}`}
           />
         </div>
       </Carousel>
