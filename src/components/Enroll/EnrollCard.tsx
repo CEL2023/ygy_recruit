@@ -39,7 +39,7 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
       }
       setGMOpen(true, {
         title: "알림",
-        content: "알 수 없는 오류 - 관리자에게 문의하세요",
+        content: "더 이상 자리가 없습니다",
       });
     },
   });
