@@ -52,31 +52,6 @@ function index() {
             alt={`MAIN_${1}`}
           />
         </div>
-        <div className="relative h-96 w-full">
-          <Image
-            fill
-            priority
-            className=" object-cover"
-            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${8}.jpeg`}
-            alt={`MAIN_${8}`}
-          />
-        </div>
-        <div className="relative h-96 w-full">
-          <Image
-            fill
-            className=" object-cover"
-            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${9}.jpeg`}
-            alt={`MAIN_${9}`}
-          />
-        </div>
-        <div className="relative h-96 w-full">
-          <Image
-            fill
-            className=" object-cover"
-            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${10}.jpeg`}
-            alt={`MAIN_${10}`}
-          />
-        </div>
       </Carousel>
       <div className=" m-4 flex items-center justify-center gap-2 text-center text-2xl font-thin md:text-4xl">
         <div>서류 지원 마감됨</div>
