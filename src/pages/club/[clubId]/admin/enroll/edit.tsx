@@ -21,7 +21,7 @@ function Page() {
   }, [hided]);
   const { data, isLoading } = useQuery<any, AxiosError, { data: IEnroll[] }>({
     queryKey: [`club/admin/enrolls`, clubId],
-    queryFn: () => getAllSubmittedEnroll(clubId!),
+    queryFn: () => getAllSavedEnroll(clubId!),
   });
   const [filtered, setFiltered] = useState<IEnroll[]>();
 
