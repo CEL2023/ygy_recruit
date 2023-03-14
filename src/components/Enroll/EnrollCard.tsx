@@ -16,13 +16,14 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(0);
   const { setGMOpen } = useGlobalModal();
+  const { push } = useRouter();
   const [canRegister, setCanRegister] = useState<boolean>(false);
   const { isLoading, mutateAsync } = useMutation<any, AxiosError>({
     useErrorBoundary: false,
     mutationFn: () => finalRegister(enroll.id.toString()),
     mutationKey: ["me/finalRegister", enroll.id],
-    onSuccess: () => {
-      setGMOpen(true, { title: "알림", content: "성공적으로 신청 되었습니다" });
+    onSuccess: async () => {
+      await push("/finalRegister");
     },
     onError: (error, variables, context) => {
       if (error.status == 403) {
@@ -42,6 +43,7 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
       });
     },
   });
+  useEffect(() => {}, [enroll]);
   const time = useRef(
     Math.floor(
       (1678287600000 +
@@ -53,7 +55,7 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
     )
   );
   const timerId = useRef<NodeJS.Timer>();
-  const { push } = useRouter();
+
   const toName = async () => {
     const data = await clubIdToStr(enroll.clubId.toString());
     setClubName(data);
@@ -68,7 +70,6 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
 
     return () => clearInterval(timerId.current);
   }, []);
-
   useEffect(() => {
     if (time.current <= 0) {
       setCanRegister(true);
@@ -87,7 +88,9 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
             <div>{clubname}</div>
             <div
               className={`${
-                enroll.passLevel == 0
+                enroll.finalRegister == true
+                  ? " text-emerald-500"
+                  : enroll.passLevel == 0
                   ? "text-amber-800"
                   : enroll.passLevel == 1
                   ? "text-red-500"
@@ -104,7 +107,9 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
                   : "text-amber-800"
               } font-semibold`}
             >
-              {toPassLevelStr(enroll?.passLevel)?.status}
+              {enroll.finalRegister
+                ? "최종 합격"
+                : toPassLevelStr(enroll?.passLevel)?.status}
             </div>
           </div>
           <div>{toDateString(enroll?.updatedAt)}에 제출됨</div>
@@ -115,59 +120,64 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
             >
               지원서 보기
             </button>
-
-            <button
-              onClick={async () => await mutateAsync()}
-              disabled={
-                !(
-                  ((enroll?.passLevel! > 0 && enroll?.passLevel % 2 == 0) ||
-                    enroll.passLevel == 7) &&
+            {enroll?.finalRegister ? null : (
+              <button
+                onClick={async () => await mutateAsync()}
+                disabled={
+                  !(
+                    ((enroll?.passLevel! > 0 && enroll?.passLevel % 2 == 0) ||
+                      enroll.passLevel == 7) &&
+                    canRegister
+                  )
+                }
+                className={`${
                   canRegister
-                )
-              }
-              className={`${
-                canRegister
-                  ? "transition-all duration-200 hover:scale-105"
-                  : "brightness-50"
-              } ${
-                enroll.passLevel == 0
-                  ? "bg-amber-800"
-                  : enroll.passLevel == 1
-                  ? "bg-red-500"
-                  : enroll.passLevel == 3
-                  ? "bg-rose-700"
-                  : enroll.passLevel == 4
-                  ? "bg-cyan-700"
-                  : enroll.passLevel == 5
-                  ? "bg-pink-800"
-                  : enroll.passLevel == 6
-                  ? "bg-blue-800"
-                  : enroll.passLevel == 7
-                  ? "bg-[#7ca6de]"
-                  : "bg-amber-800"
-              } mx-auto w-full rounded-xl px-4 py-2 text-xl font-medium text-white `}
-            >
-              {time.current <= 0 ? (
-                <>
-                  {isLoading ? (
-                    <div className="h-8 w-8">
-                      <BasicLoader />
-                    </div>
-                  ) : (
-                    <>
-                      {enroll.passLevel == 6 || enroll.passLevel == 7
-                        ? `${enroll.passLevel == 7 ? "우선 선발" : "일반 합격"}`
-                        : toPassLevelStr(enroll.passLevel).status}
-                    </>
-                  )}
-                </>
-              ) : (
-                <>
-                  <div className="text-center font-bold">지원까지</div>
-                  {hour}시간{min}분{sec}초
-                </>
-              )}
-            </button>
+                    ? "transition-all duration-200 hover:scale-105"
+                    : "brightness-50"
+                } ${
+                  enroll.passLevel == 0
+                    ? "bg-amber-800"
+                    : enroll.passLevel == 1
+                    ? "bg-red-500"
+                    : enroll.passLevel == 3
+                    ? "bg-rose-700"
+                    : enroll.passLevel == 4
+                    ? "bg-cyan-700"
+                    : enroll.passLevel == 5
+                    ? "bg-pink-800"
+                    : enroll.passLevel == 6
+                    ? "bg-blue-800"
+                    : enroll.passLevel == 7
+                    ? "bg-[#7ca6de]"
+                    : "bg-amber-800"
+                } mx-auto w-full rounded-xl px-4 py-2 text-xl font-medium text-white `}
+              >
+                {time.current <= 0 ? (
+                  <>
+                    {isLoading ? (
+                      <div className="h-8 w-8">
+                        <BasicLoader />
+                      </div>
+                    ) : (
+                      <>
+                        {enroll.passLevel == 6 || enroll.passLevel == 7
+                          ? `${
+                              enroll.passLevel == 7
+                                ? "우선 선발"
+                                : `${enroll.priority}지망 신청`
+                            }`
+                          : toPassLevelStr(enroll.passLevel).status}
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <div className="text-center font-bold">지원까지</div>
+                    {hour}시간{min}분{sec}초
+                  </>
+                )}
+              </button>
+            )}
           </div>
         </div>
       </div>
