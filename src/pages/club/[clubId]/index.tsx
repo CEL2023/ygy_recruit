@@ -68,6 +68,7 @@ function Page() {
                 <div className="text-center text-2xl font-semibold">부원</div>
                 <div>
                   {data?.data?.members
+                    .filter((i) => i.rank >= 3)
                     ?.sort((a, b) => b.rank - a.rank)
                     .map((item, index: number) => {
                       return <VertProfileCard key={index} user={item} />;
