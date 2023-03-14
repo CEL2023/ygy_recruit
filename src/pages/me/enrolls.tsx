@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getMyEnrolls, IEnroll } from "../../api/enroll/api";
 import EnrollCard from "../../components/Enroll/EnrollCard";
 import { useUserStore } from "../../zustand/User";
 
 function Enrolls() {
   const { user } = useUserStore();
+  const [finalRegistered, setFinalRegistered] = useState(false);
   const { back, push } = useRouter();
   const { data, isLoading } = useQuery<any, AxiosError, { data: IEnroll[] }>({
     queryKey: [`user/enroll`, user?.username],
@@ -18,6 +19,7 @@ function Enrolls() {
       push("/me");
     }
   }, []);
+
   return (
     <div>
       {!user?.rank ? (
