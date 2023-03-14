@@ -20,7 +20,7 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
   const [canRegister, setCanRegister] = useState<boolean>(false);
   const { isLoading, mutateAsync } = useMutation<any, AxiosError>({
     useErrorBoundary: false,
-    mutationFn: () => {},
+    mutationFn: () => finalRegister(enroll.id.toString()),
     mutationKey: ["me/finalRegister", enroll.id],
     onSuccess: async () => {
       await push("/finalRegister");
