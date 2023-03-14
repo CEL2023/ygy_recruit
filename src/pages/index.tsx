@@ -52,6 +52,14 @@ function index() {
             alt={`MAIN_${1}`}
           />
         </div>
+        <div className="relative h-96 w-full">
+          <Image
+            fill
+            className=" object-cover"
+            src={`https://enrollimages.s3.ap-northeast-2.amazonaws.com/Main_${2}.jpeg`}
+            alt={`MAIN_${2}`}
+          />
+        </div>
       </Carousel>
       <div className=" m-4 flex items-center justify-center gap-2 text-center text-2xl font-thin md:text-4xl">
         <div>서류 지원 마감됨</div>
