@@ -120,7 +120,7 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
             >
               지원서 보기
             </button>
-            {enroll?.finalRegister ? null : (
+            {/* {enroll?.finalRegister ? null : (
               <button
                 onClick={async () => await mutateAsync()}
                 disabled={
@@ -177,7 +177,7 @@ function EnrollCard({ enroll }: { enroll: IEnroll }) {
                   </>
                 )}
               </button>
-            )}
+            )} */}
           </div>
         </div>
       </div>
