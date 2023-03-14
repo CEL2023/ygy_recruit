@@ -25,6 +25,13 @@ export const getAllSubmittedEnroll = async (clubId: string | string[]) => {
   );
   return res;
 };
+
+export const getAllSavedEnroll = async (clubId: string | string[]) => {
+  const res = await fetcher.get<IEnroll[]>(
+    `/api/v1/club/${clubId.toString()}/savedPassLevel`
+  );
+  return res;
+};
 export const getClubSubmittedEnroll = async (
   clubId: string | string[],
   enrollId: string | string[]
